@@ -19,9 +19,6 @@ y puede ejecutarse offline una vez descargada.
 4. Cerrar cualquier instancia anterior y ejecutar `Setup.exe`.
 5. Abrir la aplicación desde el menú Inicio.
 
-El prototipo actual no está firmado y puede activar SmartScreen. Un hash correcto
-prueba integridad respecto de la evidencia entregada, no identidad editorial.
-
 ## Actualizar una instalación existente
 
 Todavía no hay descarga ni actualización automática dentro de la aplicación. La
@@ -195,9 +192,3 @@ y usar `npm run dev`. Para probar una aplicación desempaquetada nueva, se ejecu
    npm --prefix desktop run make
    uv run python desktop/scripts/generate-release-evidence.py
    ```
-
-Los distributables quedan en `desktop/out/make/` y el SBOM, hashes y avisos en
-`desktop/release-evidence/`. Antes de publicar, se debe probar el `Setup.exe` en una
-Windows 11 x64 limpia, offline y sin Python o Node del sistema. La firma de código
-es obligatoria para una release pública, aunque el prototipo interno siga sin
-firma.
