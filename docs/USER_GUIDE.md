@@ -314,10 +314,3 @@ derivados.
 | `RUN_ALREADY_ACTIVE` | No ejecutar `run/resume` en paralelo; usar `cancel` desde el CORE si corresponde. |
 | `INTEGRITY_ERROR` | No editar artefactos durables; inspeccionar y conservar el workspace para diagnóstico. |
 | método exacto no disponible | El motor exacto usa la fórmula cerrada para bosques lineales válidos; el método de referencia puede omitirse por su límite configurable. |
-
-No existe un limpiador automático. Respaldar y eliminar evidencia es una
-decisión manual de retención.
-
-La explicación del dominio está en `docs/DOMAIN_GUIDE.md`; sus contratos y
-schemas se encuentran en `docs/contracts/domain_extension_contracts.md` y en
-los subdirectorios versionados de `domain_schemas/`.
