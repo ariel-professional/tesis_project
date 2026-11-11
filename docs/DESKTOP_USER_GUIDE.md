@@ -11,12 +11,8 @@ matrices REL o cuantitativas y Pareto multidimensional.
 Si se dispone de un `Setup.exe` de la misma versión, se instala la aplicación y
 se abre desde el menú Inicio. Si sólo se dispone del código, se puede seguir el apartado de desarrollo de
 la [guía de instalación](DESKTOP_INSTALLATION_AND_UPDATE.md#preparar-el-entorno-de-desarrollo).
-El instalador contiene Electron, la UI y el runtime Python necesarios; no requiere
+El instalador contiene Electron, la UI y el runtime Python necesario, no requiere
 una instalación separada de Python o Node.
-
-Este prototipo no está firmado. Windows puede mostrar SmartScreen: antes de
-continuar, se debe verificar que el SHA-256 del instalador coincida con
-`desktop/release-evidence/SHA256SUMS.json` entregado junto al artefacto.
 
 ## Elegir aplicación y modelo
 
@@ -140,8 +136,7 @@ hasta que se detenga el cálculo en curso y se confirme la cancelación.
 
 Una ejecución cancelada conserva su evidencia y sus intentos anteriores. Al usar
 **Reanudar** en modo estándar, los casos completados se reutilizan y un hijo
-CORE cancelado recibe un intento nuevo. Las ejecuciones de alto rendimiento de
-SRFL 2.1 no se pueden reanudar: para volver a calcular hay que iniciar una nueva.
+CORE cancelado recibe un intento nuevo.
 
 ## Recuperar una ejecución interrumpida
 
@@ -155,7 +150,7 @@ más reciente. Es necesario elegir:
 
 Después de una caída puede ser necesario volver a indicar si se desea cancelar
 o reanudar la ejecución estándar.
-Una ejecución de alto rendimiento interrumpida no se reanuda; debe iniciarse una nueva.
+Una ejecución de alto rendimiento interrumpida no se reanuda, debe iniciarse una nueva.
 
 ## Leer los resultados
 
@@ -225,8 +220,6 @@ Al abrir una plantilla, **Importar adjuntos** e **Importar descripción/detalle 
 las restricciones** comienzan desactivados. El primero controla archivos y enlaces
 heredados de los tres niveles; el segundo controla únicamente los textos de las
 restricciones. Las descripciones del estudio y los diseños se heredan siempre.
-Cambiar los switches conserva las modificaciones propias y no recupera adjuntos
-eliminados individualmente.
 
 La revisión reúne la documentación antes de preparar. Los resultados permiten
 consultarla sin editar; el detalle de un caso muestra el diseño y las restricciones
@@ -250,11 +243,7 @@ de Electron, normalmente:
 
 Allí viven proyecciones, plantillas del usuario, runs de dominio y runs CORE. Para
 obtener un respaldo consistente, se debe cerrar la aplicación antes de copiar el
-workspace. No se deben editar sus archivos JSON ni eliminar runs hijos manualmente:
-el workspace es la autoridad científica.
-
-No hay limpieza automática, sincronización remota, proyectos editables ni
-recuperación del borrador previo a **Preparar y ejecutar**.
+workspace.
 
 ## Problemas frecuentes
 
