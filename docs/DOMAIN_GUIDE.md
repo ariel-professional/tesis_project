@@ -5,7 +5,7 @@ resultados. Para instalar el proyecto y aprender a usar las referencias de las
 ejecuciones, se puede consultar primero la [guía de uso](USER_GUIDE.md).
 
 Hay dos dominios: recorridos de inspección y distribución de estaciones en una
-fila. Cada uno permite describir el problema con sus propios términos; el
+fila. Cada uno permite describir el problema con sus propios términos, el
 programa transforma esa descripción en un grafo para realizar los cálculos.
 
 ## Recorridos de inspección
@@ -115,9 +115,6 @@ creados desde experimentos CORE ad hoc.
   motor de referencia permite contrastar resultados cuando el tamaño no supera
   el límite configurado.
 
-El modelo no incluye distancias, costos, horarios ni caminos físicamente
-prohibidos.
-
 El ejemplo `comparison.json` usa ocho instalaciones y reúne una política libre,
 una parcial, una secuencia completamente fijada y una política imposible.
 
@@ -141,8 +138,8 @@ uv run tesis-domain run DOMAIN_EXPERIMENT_REF --workspace workspace
 ```
 
 En el ejemplo de SRFL 1.0.0, `study` declara estaciones, componentes con `utility` entera no negativa y
-diseños. Cada diseño declara `base_component_ids`; los demás componentes son
-candidatos. `reporting.invalid_combinations` elige resumen o detalle completo.
+diseños. Cada diseño declara `base_component_ids`, los demás componentes son
+candidatos.
 
 En SRFL 2.0 puede existir un único diseño de control con base vacía. Conserva
 la misma regla de generación: todos los componentes del catálogo son candidatos
@@ -151,7 +148,7 @@ y el caso sin restricciones forma parte de sus combinaciones.
 La aplicación genera subconjuntos de forma perezosa. Ciclos y grado mayor que
 dos podan la rama antes de crear artefactos CORE, pero todos sus descendientes
 se contabilizan como combinaciones inválidas. Bosques iguales comparten un run
-CORE; cada selección conserva un `case_id` decisional distinto.
+CORE, cada selección conserva un `case_id` distinto.
 
 ```text
 workspace/domain_runs/<domain_run_id>/
@@ -166,8 +163,7 @@ reinterpreta los resultados existentes. El modo de alto rendimiento de SRFL
 
 En SRFL 1.0.0, el caso sin candidatos aporta `H_D`. Cada alternativa informa utilidad
 incremental y total, `H_i/H_D`, restrictividad y clasificación Pareto dentro de
-su diseño. Las salidas separan combinaciones inválidas, casos dominados y
-frontera de Pareto; nunca seleccionan automáticamente un mejor layout.
+su diseño.
 
 Los ejemplos `hospital-k8.json` e `industrial-k8.json` ejercitan 8 estaciones,
 componentes superpuestos, conflictos y fronteras no triviales.
