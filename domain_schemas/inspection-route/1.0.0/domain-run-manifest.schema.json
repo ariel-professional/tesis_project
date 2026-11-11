@@ -1,0 +1,280 @@
+{
+  "$defs": {
+    "CoreRunAttempt": {
+      "additionalProperties": false,
+      "description": "A durable attempt to execute one projected case in CORE.",
+      "properties": {
+        "core_run_id": {
+          "title": "Core Run Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "created",
+            "running",
+            "completed",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "core_run_id",
+        "status"
+      ],
+      "title": "CoreRunAttempt",
+      "type": "object"
+    },
+    "InspectionConstraintPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "required_consecutive_visits": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Required Consecutive Visits",
+          "type": "array"
+        }
+      },
+      "required": [
+        "required_consecutive_visits"
+      ],
+      "title": "InspectionConstraintPayload",
+      "type": "object"
+    },
+    "InspectionGenerationMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "core_cases": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Core Cases"
+        },
+        "declared_scenarios": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Declared Scenarios"
+        },
+        "duplicate_constraint_sets": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duplicate Constraint Sets"
+        },
+        "invalid_scenarios": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Scenarios"
+        },
+        "valid_scenarios": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Scenarios"
+        }
+      },
+      "required": [
+        "declared_scenarios",
+        "valid_scenarios",
+        "invalid_scenarios",
+        "duplicate_constraint_sets",
+        "core_cases"
+      ],
+      "title": "InspectionGenerationMetrics",
+      "type": "object"
+    },
+    "InspectionRouteDomainRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "inspection-route",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "InspectionRouteDomainRef",
+      "type": "object"
+    },
+    "InspectionScenarioOrigin": {
+      "additionalProperties": false,
+      "properties": {
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scenario_id"
+      ],
+      "title": "InspectionScenarioOrigin",
+      "type": "object"
+    },
+    "PersistedConstraintSet": {
+      "additionalProperties": false,
+      "properties": {
+        "attempts": {
+          "items": {
+            "$ref": "#/$defs/CoreRunAttempt"
+          },
+          "minItems": 1,
+          "title": "Attempts",
+          "type": "array"
+        },
+        "constraint_set_id": {
+          "title": "Constraint Set Id",
+          "type": "string"
+        },
+        "core_experiment_id": {
+          "title": "Core Experiment Id",
+          "type": "string"
+        },
+        "origins": {
+          "items": {
+            "$ref": "#/$defs/InspectionScenarioOrigin"
+          },
+          "title": "Origins",
+          "type": "array"
+        },
+        "payload": {
+          "$ref": "#/$defs/InspectionConstraintPayload"
+        }
+      },
+      "required": [
+        "constraint_set_id",
+        "core_experiment_id",
+        "origins",
+        "payload",
+        "attempts"
+      ],
+      "title": "PersistedConstraintSet",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/PersistedConstraintSet"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "domain": {
+      "$ref": "#/$defs/InspectionRouteDomainRef"
+    },
+    "domain_experiment_id": {
+      "title": "Domain Experiment Id",
+      "type": "string"
+    },
+    "domain_run_id": {
+      "title": "Domain Run Id",
+      "type": "string"
+    },
+    "generation": {
+      "$ref": "#/$defs/InspectionGenerationMetrics"
+    },
+    "generator_cursor": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Generator Cursor"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "created",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain_run_id",
+    "domain_experiment_id",
+    "domain",
+    "display_name",
+    "status",
+    "generator_cursor",
+    "generation",
+    "cases",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "InspectionDomainRunManifest",
+  "type": "object"
+}

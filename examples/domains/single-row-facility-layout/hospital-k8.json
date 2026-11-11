@@ -1,0 +1,53 @@
+{
+  "domain": {"id": "single-row-facility-layout", "version": "1.0.0"},
+  "execution": {
+    "counting_convention": "undirected_paths_reverse_identified",
+    "integer_limits": {
+      "cancellation_grace_ms": 1000,
+      "control_connect_timeout_ms": 1000,
+      "control_max_message_bytes": 16384,
+      "control_response_timeout_ms": 1000,
+      "event_max_payload_bytes": 65536,
+      "exact_timeout_ms": 30000,
+      "input_max_bytes": 1048576,
+      "max_n": 12,
+      "reference_max_n": 10,
+      "reference_timeout_ms": 30000,
+      "runner_log_backup_count": 3,
+      "runner_log_max_bytes": 5242880,
+      "worker_max_message_bytes": 65536
+    },
+    "methods": {
+      "exact": {"engine": "auto"},
+      "reference": {"engine": "bruteforce_python_v1"}
+    },
+    "persistence": {"persist_events": false, "policy": "normal"}
+  },
+  "reporting": {"invalid_combinations": "full"},
+  "schema_version": "1.0.0",
+  "study": {
+    "components": [
+      {"id": "c0", "station_ids": ["s", "r"], "utility": 10},
+      {"id": "c1", "station_ids": ["e", "i"], "utility": 9},
+      {"id": "c2", "station_ids": ["e", "l"], "utility": 7},
+      {"id": "c3", "station_ids": ["e", "p"], "utility": 4},
+      {"id": "c4", "station_ids": ["s", "c"], "utility": 8},
+      {"id": "c5", "station_ids": ["s", "i"], "utility": 5}
+    ],
+    "designs": [
+      {"base_component_ids": ["c0"], "id": "d1", "title": "Sector hospitalario"}
+    ],
+    "id": "hospital-k8",
+    "stations": [
+      {"id": "e", "name": "Emergencias"},
+      {"id": "i", "name": "Diagnostico por Imagenes"},
+      {"id": "l", "name": "Laboratorio"},
+      {"id": "p", "name": "Farmacia"},
+      {"id": "o", "name": "Consultorios ambulatorios"},
+      {"id": "r", "name": "Recuperacion"},
+      {"id": "s", "name": "Cirugia"},
+      {"id": "c", "name": "Central de esterilizacion"}
+    ],
+    "title": "Evaluacion de requisitos de adyacencia hospitalaria"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "@domain-ui-sdk": ["domain-ui-sdk/src/index.ts"],
+      "@domain-ui-kit": ["domain-ui-kit/src/index.ts"],
+      "@srfl-ui/*": ["../src/tesis_domain_extensions/domains/single_row_facility_layout/ui/src/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "domain-ui-sdk/src/**/*.ts",
+    "domain-ui-kit/src/**/*.ts",
+    "domain-ui-kit/src/**/*.tsx",
+    "../src/tesis_domain_extensions/domains/*/ui/src/**/*.ts",
+    "../src/tesis_domain_extensions/domains/*/ui/src/**/*.tsx",
+    "forge.config.ts",
+    "webpack.*.ts"
+  ]
+}

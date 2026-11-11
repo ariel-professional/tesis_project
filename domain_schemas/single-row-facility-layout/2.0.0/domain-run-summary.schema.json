@@ -1,0 +1,89 @@
+{
+  "$defs": {
+    "SingleRowDomainRefV2": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "2.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRefV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRefV2"
+    },
+    "domain_experiment_id": {
+      "title": "Domain Experiment Id",
+      "type": "string"
+    },
+    "domain_experiment_reference": {
+      "title": "Domain Experiment Reference",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "run_reference": {
+      "title": "Run Reference",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "created",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_reference",
+    "run_id",
+    "domain_experiment_reference",
+    "domain_experiment_id",
+    "domain",
+    "display_name",
+    "status",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "SingleRowRunSummaryV2",
+  "type": "object"
+}

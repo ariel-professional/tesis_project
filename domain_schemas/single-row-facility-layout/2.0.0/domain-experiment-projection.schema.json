@@ -1,0 +1,1128 @@
+{
+  "$defs": {
+    "AdjacencyValueEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "from_station_id": {
+          "title": "From Station Id",
+          "type": "string"
+        },
+        "to_station_id": {
+          "title": "To Station Id",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "from_station_id",
+        "to_station_id",
+        "value"
+      ],
+      "title": "AdjacencyValueEntry",
+      "type": "object"
+    },
+    "AdjacencyValueMatrix": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "directed": {
+          "title": "Directed",
+          "type": "boolean"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/AdjacencyValueEntry"
+          },
+          "minItems": 1,
+          "title": "Entries",
+          "type": "array"
+        },
+        "id": {
+          "maxLength": 48,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "provenance": {
+          "title": "Provenance",
+          "type": "string"
+        },
+        "reference_period": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Period"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "direction",
+        "unit",
+        "provenance",
+        "directed",
+        "entries"
+      ],
+      "title": "AdjacencyValueMatrix",
+      "type": "object"
+    },
+    "DecisionModelV2": {
+      "additionalProperties": false,
+      "properties": {
+        "adjacency_flow": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FlowMatrix"
+            },
+            {
+              "items": {
+                "$ref": "#/$defs/AdjacencyValueMatrix"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adjacency Flow"
+        },
+        "rel_closeness": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RelMatrix"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "retained_compatible_layouts": {
+          "default": false,
+          "title": "Retained Compatible Layouts",
+          "type": "boolean"
+        },
+        "selected_objectives": {
+          "items": {
+            "$ref": "#/$defs/ObjectiveReference"
+          },
+          "title": "Selected Objectives",
+          "type": "array"
+        },
+        "undesired_prescribed_adjacencies": {
+          "items": {
+            "$ref": "#/$defs/UndesiredAdjacency"
+          },
+          "title": "Undesired Prescribed Adjacencies",
+          "type": "array"
+        }
+      },
+      "title": "DecisionModelV2",
+      "type": "object"
+    },
+    "ExactMethodConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "auto",
+          "title": "Engine",
+          "type": "string"
+        }
+      },
+      "required": [
+        "engine"
+      ],
+      "title": "ExactMethodConfig",
+      "type": "object"
+    },
+    "ExecutionConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "counting_convention": {
+          "const": "undirected_paths_reverse_identified",
+          "title": "Counting Convention",
+          "type": "string"
+        },
+        "integer_limits": {
+          "$ref": "#/$defs/IntegerLimits"
+        },
+        "methods": {
+          "$ref": "#/$defs/MethodsConfig"
+        },
+        "persistence": {
+          "$ref": "#/$defs/PersistenceConfig"
+        }
+      },
+      "required": [
+        "methods",
+        "integer_limits",
+        "persistence",
+        "counting_convention"
+      ],
+      "title": "ExecutionConfig",
+      "type": "object"
+    },
+    "FileAttachment": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "file",
+          "title": "Kind",
+          "type": "string"
+        },
+        "media_type": {
+          "enum": [
+            "image/png",
+            "image/jpeg",
+            "image/webp",
+            "application/pdf"
+          ],
+          "title": "Media Type",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "sha256",
+        "name",
+        "media_type",
+        "size_bytes"
+      ],
+      "title": "FileAttachment",
+      "type": "object"
+    },
+    "FlowEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "from_station_id": {
+          "title": "From Station Id",
+          "type": "string"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "title": "Quantity"
+        },
+        "to_station_id": {
+          "title": "To Station Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "from_station_id",
+        "to_station_id",
+        "quantity"
+      ],
+      "title": "FlowEntry",
+      "type": "object"
+    },
+    "FlowMatrix": {
+      "additionalProperties": false,
+      "properties": {
+        "directed": {
+          "title": "Directed",
+          "type": "boolean"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/FlowEntry"
+          },
+          "minItems": 1,
+          "title": "Entries",
+          "type": "array"
+        },
+        "horizon": {
+          "title": "Horizon",
+          "type": "string"
+        },
+        "provenance": {
+          "title": "Provenance",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "unit",
+        "horizon",
+        "provenance",
+        "directed",
+        "entries"
+      ],
+      "title": "FlowMatrix",
+      "type": "object"
+    },
+    "IntegerLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "cancellation_grace_ms": {
+          "minimum": 0,
+          "title": "Cancellation Grace Ms",
+          "type": "integer"
+        },
+        "control_connect_timeout_ms": {
+          "minimum": 1,
+          "title": "Control Connect Timeout Ms",
+          "type": "integer"
+        },
+        "control_max_message_bytes": {
+          "minimum": 1,
+          "title": "Control Max Message Bytes",
+          "type": "integer"
+        },
+        "control_response_timeout_ms": {
+          "minimum": 1,
+          "title": "Control Response Timeout Ms",
+          "type": "integer"
+        },
+        "event_max_payload_bytes": {
+          "minimum": 1,
+          "title": "Event Max Payload Bytes",
+          "type": "integer"
+        },
+        "exact_timeout_ms": {
+          "minimum": 1,
+          "title": "Exact Timeout Ms",
+          "type": "integer"
+        },
+        "input_max_bytes": {
+          "minimum": 1,
+          "title": "Input Max Bytes",
+          "type": "integer"
+        },
+        "max_n": {
+          "minimum": 1,
+          "title": "Max N",
+          "type": "integer"
+        },
+        "reference_max_n": {
+          "minimum": 1,
+          "title": "Reference Max N",
+          "type": "integer"
+        },
+        "reference_timeout_ms": {
+          "minimum": 1,
+          "title": "Reference Timeout Ms",
+          "type": "integer"
+        },
+        "runner_log_backup_count": {
+          "minimum": 0,
+          "title": "Runner Log Backup Count",
+          "type": "integer"
+        },
+        "runner_log_max_bytes": {
+          "minimum": 1,
+          "title": "Runner Log Max Bytes",
+          "type": "integer"
+        },
+        "worker_max_message_bytes": {
+          "minimum": 1,
+          "title": "Worker Max Message Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_n",
+        "reference_max_n",
+        "exact_timeout_ms",
+        "reference_timeout_ms",
+        "cancellation_grace_ms",
+        "control_connect_timeout_ms",
+        "control_response_timeout_ms",
+        "control_max_message_bytes",
+        "input_max_bytes",
+        "event_max_payload_bytes",
+        "worker_max_message_bytes",
+        "runner_log_max_bytes",
+        "runner_log_backup_count"
+      ],
+      "title": "IntegerLimits",
+      "type": "object"
+    },
+    "LayoutDesignV2": {
+      "additionalProperties": false,
+      "properties": {
+        "attachments": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "file": "#/$defs/FileAttachment",
+                "link": "#/$defs/LinkAttachment"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/FileAttachment"
+              },
+              {
+                "$ref": "#/$defs/LinkAttachment"
+              }
+            ]
+          },
+          "title": "Attachments",
+          "type": "array"
+        },
+        "base_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Base Component Ids",
+          "type": "array"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "base_component_ids"
+      ],
+      "title": "LayoutDesignV2",
+      "type": "object"
+    },
+    "LayoutReportingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "invalid_combinations": {
+          "default": "summary",
+          "enum": [
+            "summary",
+            "full"
+          ],
+          "title": "Invalid Combinations",
+          "type": "string"
+        }
+      },
+      "title": "LayoutReportingV2",
+      "type": "object"
+    },
+    "LayoutStudyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "attachments": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "file": "#/$defs/FileAttachment",
+                "link": "#/$defs/LinkAttachment"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/FileAttachment"
+              },
+              {
+                "$ref": "#/$defs/LinkAttachment"
+              }
+            ]
+          },
+          "title": "Attachments",
+          "type": "array"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/LinearComponentV2"
+          },
+          "minItems": 1,
+          "title": "Components",
+          "type": "array"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "designs": {
+          "items": {
+            "$ref": "#/$defs/LayoutDesignV2"
+          },
+          "minItems": 1,
+          "title": "Designs",
+          "type": "array"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "stations": {
+          "items": {
+            "$ref": "#/$defs/StationV2"
+          },
+          "minItems": 1,
+          "title": "Stations",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "stations",
+        "components",
+        "designs"
+      ],
+      "title": "LayoutStudyV2",
+      "type": "object"
+    },
+    "LinearComponentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "attachments": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "file": "#/$defs/FileAttachment",
+                "link": "#/$defs/LinkAttachment"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/FileAttachment"
+              },
+              {
+                "$ref": "#/$defs/LinkAttachment"
+              }
+            ]
+          },
+          "title": "Attachments",
+          "type": "array"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "station_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "title": "Station Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "station_ids"
+      ],
+      "title": "LinearComponentV2",
+      "type": "object"
+    },
+    "LinkAttachment": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "link",
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "url"
+      ],
+      "title": "LinkAttachment",
+      "type": "object"
+    },
+    "MethodsConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "exact": {
+          "$ref": "#/$defs/ExactMethodConfig"
+        },
+        "reference": {
+          "$ref": "#/$defs/ReferenceMethodConfig"
+        }
+      },
+      "required": [
+        "exact",
+        "reference"
+      ],
+      "title": "MethodsConfig",
+      "type": "object"
+    },
+    "ObjectiveDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "criterion",
+            "indicator"
+          ],
+          "title": "Classification",
+          "type": "string"
+        },
+        "decision_question": {
+          "title": "Decision Question",
+          "type": "string"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "direction_mode": {
+          "default": "fixed",
+          "enum": [
+            "fixed",
+            "per_instance"
+          ],
+          "title": "Direction Mode",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Limitations",
+          "type": "array"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "repeatable_input": {
+          "default": false,
+          "title": "Repeatable Input",
+          "type": "boolean"
+        },
+        "required_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Required Inputs",
+          "type": "array"
+        },
+        "scope": {
+          "enum": [
+            "case",
+            "prescribed_adjacencies"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "version": {
+          "const": "1",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "name",
+        "summary",
+        "decision_question",
+        "classification",
+        "direction",
+        "unit",
+        "formula",
+        "scope",
+        "limitations",
+        "required_inputs",
+        "evidence"
+      ],
+      "title": "ObjectiveDefinition",
+      "type": "object"
+    },
+    "ObjectiveReference": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "1",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "ObjectiveReference",
+      "type": "object"
+    },
+    "ObjectiveSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "$ref": "#/$defs/ObjectiveDefinition"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "title": "ObjectiveSnapshot",
+      "type": "object"
+    },
+    "PersistenceConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "persist_events": {
+          "title": "Persist Events",
+          "type": "boolean"
+        },
+        "policy": {
+          "enum": [
+            "normal",
+            "debug"
+          ],
+          "title": "Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy",
+        "persist_events"
+      ],
+      "title": "PersistenceConfig",
+      "type": "object"
+    },
+    "ReferenceMethodConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "bruteforce_python_v1",
+          "title": "Engine",
+          "type": "string"
+        }
+      },
+      "required": [
+        "engine"
+      ],
+      "title": "ReferenceMethodConfig",
+      "type": "object"
+    },
+    "RelMatrix": {
+      "additionalProperties": false,
+      "properties": {
+        "requirements": {
+          "items": {
+            "$ref": "#/$defs/RelRequirement"
+          },
+          "minItems": 1,
+          "title": "Requirements",
+          "type": "array"
+        }
+      },
+      "required": [
+        "requirements"
+      ],
+      "title": "RelMatrix",
+      "type": "object"
+    },
+    "RelRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "first_station_id": {
+          "title": "First Station Id",
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "A",
+            "E",
+            "I",
+            "O",
+            "U",
+            "X"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "provenance": {
+          "title": "Provenance",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "second_station_id": {
+          "title": "Second Station Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "first_station_id",
+        "second_station_id",
+        "level",
+        "reason",
+        "provenance"
+      ],
+      "title": "RelRequirement",
+      "type": "object"
+    },
+    "SingleRowDomainRefV2": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "2.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRefV2",
+      "type": "object"
+    },
+    "SingleRowFacilityLayoutConfigV2": {
+      "additionalProperties": false,
+      "properties": {
+        "decision_model": {
+          "$ref": "#/$defs/DecisionModelV2"
+        },
+        "domain": {
+          "$ref": "#/$defs/SingleRowDomainRefV2"
+        },
+        "execution": {
+          "$ref": "#/$defs/ExecutionConfig"
+        },
+        "reporting": {
+          "$ref": "#/$defs/LayoutReportingV2"
+        },
+        "schema_version": {
+          "const": "2.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "study": {
+          "$ref": "#/$defs/LayoutStudyV2"
+        }
+      },
+      "required": [
+        "schema_version",
+        "domain",
+        "study",
+        "decision_model",
+        "execution"
+      ],
+      "title": "SingleRowFacilityLayoutConfigV2",
+      "type": "object"
+    },
+    "SingleRowProjectionContextV2": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "2.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "vertex_mapping": {
+          "items": {
+            "$ref": "#/$defs/StationVertexV2"
+          },
+          "title": "Vertex Mapping",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "vertex_mapping"
+      ],
+      "title": "SingleRowProjectionContextV2",
+      "type": "object"
+    },
+    "StationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "StationV2",
+      "type": "object"
+    },
+    "StationVertexV2": {
+      "additionalProperties": false,
+      "properties": {
+        "station_id": {
+          "title": "Station Id",
+          "type": "string"
+        },
+        "vertex": {
+          "minimum": 1,
+          "title": "Vertex",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "vertex",
+        "station_id"
+      ],
+      "title": "StationVertexV2",
+      "type": "object"
+    },
+    "UndesiredAdjacency": {
+      "additionalProperties": false,
+      "properties": {
+        "cause": {
+          "enum": [
+            "safety",
+            "cross_contamination",
+            "noise",
+            "temperature",
+            "privacy",
+            "interference",
+            "process"
+          ],
+          "title": "Cause",
+          "type": "string"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "type": "string"
+        },
+        "first_station_id": {
+          "title": "First Station Id",
+          "type": "string"
+        },
+        "policy": {
+          "enum": [
+            "forbidden",
+            "warn"
+          ],
+          "title": "Policy",
+          "type": "string"
+        },
+        "provenance": {
+          "title": "Provenance",
+          "type": "string"
+        },
+        "second_station_id": {
+          "title": "Second Station Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "first_station_id",
+        "second_station_id",
+        "cause",
+        "explanation",
+        "provenance",
+        "policy"
+      ],
+      "title": "UndesiredAdjacency",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "domain_config": {
+      "$ref": "#/$defs/SingleRowFacilityLayoutConfigV2"
+    },
+    "domain_experiment_id": {
+      "title": "Domain Experiment Id",
+      "type": "string"
+    },
+    "instance_nonce": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{32}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Instance Nonce"
+    },
+    "objective_snapshots": {
+      "items": {
+        "$ref": "#/$defs/ObjectiveSnapshot"
+      },
+      "title": "Objective Snapshots",
+      "type": "array"
+    },
+    "projection_context": {
+      "$ref": "#/$defs/SingleRowProjectionContextV2"
+    },
+    "schema_version": {
+      "const": "2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain_experiment_id",
+    "created_at",
+    "domain_config",
+    "projection_context",
+    "objective_snapshots"
+  ],
+  "title": "SingleRowExperimentProjectionV2",
+  "type": "object"
+}

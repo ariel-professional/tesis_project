@@ -1,0 +1,1 @@
+"""Inspection-route domain adapter."""

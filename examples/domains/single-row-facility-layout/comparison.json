@@ -1,0 +1,51 @@
+{
+  "domain": {"id": "single-row-facility-layout", "version": "1.0.0"},
+  "execution": {
+    "counting_convention": "undirected_paths_reverse_identified",
+    "integer_limits": {
+      "cancellation_grace_ms": 1000,
+      "control_connect_timeout_ms": 1000,
+      "control_max_message_bytes": 16384,
+      "control_response_timeout_ms": 1000,
+      "event_max_payload_bytes": 65536,
+      "exact_timeout_ms": 30000,
+      "input_max_bytes": 1048576,
+      "max_n": 12,
+      "reference_max_n": 10,
+      "reference_timeout_ms": 30000,
+      "runner_log_backup_count": 3,
+      "runner_log_max_bytes": 5242880,
+      "worker_max_message_bytes": 65536
+    },
+    "methods": {
+      "exact": {"engine": "auto"},
+      "reference": {"engine": "bruteforce_python_v1"}
+    },
+    "persistence": {"persist_events": false, "policy": "normal"}
+  },
+  "schema_version": "1.0.0",
+  "study": {
+    "components": [
+      {"id": "base-chain", "station_ids": ["s1", "s2"], "utility": 10},
+      {"id": "right-chain", "station_ids": ["s3", "s4"], "utility": 7},
+      {"id": "bridge", "station_ids": ["s2", "s3"], "utility": 8}
+    ],
+    "designs": [
+      {
+        "base_component_ids": ["base-chain", "bridge"],
+        "id": "base-design",
+        "title": "Diseño base"
+      }
+    ],
+    "id": "small-comparison",
+    "stations": [
+      {"id": "s1", "name": "Estación 1"},
+      {"id": "s2", "name": "Estación 2"},
+      {"id": "s3", "name": "Estación 3"},
+      {"id": "s4", "name": "Estación 4"},
+      {"id": "s5", "name": "Estación 5"}
+    ],
+    "title": "Comparación de disposiciones lineales"
+  },
+  "reporting": {"invalid_combinations": "summary"}
+}

@@ -1,0 +1,62 @@
+{
+  "$defs": {
+    "SingleRowDomainRefV2": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "2.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRefV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRefV2"
+    },
+    "domain_experiment_id": {
+      "title": "Domain Experiment Id",
+      "type": "string"
+    },
+    "reference": {
+      "title": "Reference",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "reference",
+    "domain_experiment_id",
+    "domain",
+    "display_name",
+    "created_at"
+  ],
+  "title": "SingleRowExperimentSummaryV2",
+  "type": "object"
+}

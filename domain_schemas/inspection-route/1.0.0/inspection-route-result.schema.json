@@ -1,0 +1,708 @@
+{
+  "$defs": {
+    "DomainDiagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_locations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Locations",
+          "type": "array"
+        },
+        "core_code": {
+          "title": "Core Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "core_code",
+        "message",
+        "affected_locations"
+      ],
+      "title": "DomainDiagnostic",
+      "type": "object"
+    },
+    "DomainLimitation": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "DomainLimitation",
+      "type": "object"
+    },
+    "ExactFraction": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Denominator"
+        },
+        "numerator": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Numerator"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "ExactFraction",
+      "type": "object"
+    },
+    "InspectionConstraintIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_location_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Location Ids",
+          "type": "array"
+        },
+        "conflicting_consecutive_visits": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Conflicting Consecutive Visits",
+          "type": "array"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "cycle",
+            "degree_exceeded"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason",
+        "message",
+        "affected_location_ids",
+        "conflicting_consecutive_visits"
+      ],
+      "title": "InspectionConstraintIssue",
+      "type": "object"
+    },
+    "InspectionExecutionRef": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_experiment_id": {
+          "title": "Domain Experiment Id",
+          "type": "string"
+        },
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "domain_experiment_id",
+        "status"
+      ],
+      "title": "InspectionExecutionRef",
+      "type": "object"
+    },
+    "InspectionGenerationMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "core_cases": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Core Cases"
+        },
+        "declared_scenarios": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Declared Scenarios"
+        },
+        "duplicate_constraint_sets": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duplicate Constraint Sets"
+        },
+        "invalid_scenarios": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Scenarios"
+        },
+        "valid_scenarios": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Scenarios"
+        }
+      },
+      "required": [
+        "declared_scenarios",
+        "valid_scenarios",
+        "invalid_scenarios",
+        "duplicate_constraint_sets",
+        "core_cases"
+      ],
+      "title": "InspectionGenerationMetrics",
+      "type": "object"
+    },
+    "InspectionRouteDomainRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "inspection-route",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "InspectionRouteDomainRef",
+      "type": "object"
+    },
+    "InspectionScenarioResult": {
+      "additionalProperties": false,
+      "properties": {
+        "constraint_set_id": {
+          "title": "Constraint Set Id",
+          "type": "string"
+        },
+        "core_run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Core Run Id"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/DomainDiagnostic"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "feasibility": {
+          "enum": [
+            "feasible",
+            "invalid_constraints",
+            "inconclusive"
+          ],
+          "title": "Feasibility",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/DomainLimitation"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "required_consecutive_visits": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Required Consecutive Visits",
+          "type": "array"
+        },
+        "retained_route_flexibility": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MeasureValue"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "route_count": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RouteCount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "scenario_title": {
+          "title": "Scenario Title",
+          "type": "string"
+        },
+        "structure": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/InspectionStructure"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "technical_metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TechnicalMetrics"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "validation_issue": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/InspectionConstraintIssue"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "scenario_id",
+        "scenario_title",
+        "required_consecutive_visits",
+        "constraint_set_id",
+        "core_run_id",
+        "feasibility",
+        "structure",
+        "route_count",
+        "retained_route_flexibility",
+        "validation_issue",
+        "diagnostics",
+        "technical_metrics",
+        "limitations"
+      ],
+      "title": "InspectionScenarioResult",
+      "type": "object"
+    },
+    "InspectionStructure": {
+      "additionalProperties": false,
+      "properties": {
+        "core_case_type": {
+          "enum": [
+            "empty",
+            "hamiltonian_path_extreme",
+            "single_edge",
+            "matching",
+            "single_path",
+            "multiple_paths"
+          ],
+          "title": "Core Case Type",
+          "type": "string"
+        },
+        "mandatory_chains": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Mandatory Chains",
+          "type": "array"
+        },
+        "planning_blocks": {
+          "minimum": 0,
+          "title": "Planning Blocks",
+          "type": "integer"
+        },
+        "unconstrained_locations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unconstrained Locations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "core_case_type",
+        "mandatory_chains",
+        "unconstrained_locations",
+        "planning_blocks"
+      ],
+      "title": "InspectionStructure",
+      "type": "object"
+    },
+    "Location": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Location",
+      "type": "object"
+    },
+    "MeasureDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "title": "Definition",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "definition"
+      ],
+      "title": "MeasureDefinition",
+      "type": "object"
+    },
+    "MeasureValue": {
+      "additionalProperties": false,
+      "properties": {
+        "measure": {
+          "$ref": "#/$defs/MeasureDefinition"
+        },
+        "value": {
+          "$ref": "#/$defs/ExactFraction"
+        }
+      },
+      "required": [
+        "measure",
+        "value"
+      ],
+      "title": "MeasureValue",
+      "type": "object"
+    },
+    "ProducerRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "ProducerRef",
+      "type": "object"
+    },
+    "RouteCount": {
+      "additionalProperties": false,
+      "properties": {
+        "comparison_status": {
+          "anyOf": [
+            {
+              "enum": [
+                "match",
+                "mismatch",
+                "not_applicable"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Comparison Status"
+        },
+        "counting_convention": {
+          "const": "undirected_paths_reverse_identified",
+          "title": "Counting Convention",
+          "type": "string"
+        },
+        "exact_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Exact Value"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProducerRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reference_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reference Value"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "value",
+        "method",
+        "exact_value",
+        "reference_value",
+        "counting_convention",
+        "comparison_status"
+      ],
+      "title": "RouteCount",
+      "type": "object"
+    },
+    "TechnicalMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates_examined": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Candidates Examined"
+        },
+        "duration_ms": {
+          "minimum": 0,
+          "title": "Duration Ms",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "duration_ms",
+        "candidates_examined"
+      ],
+      "title": "TechnicalMetrics",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "comparison_status": {
+      "enum": [
+        "conclusive",
+        "inconclusive",
+        "not_applicable"
+      ],
+      "title": "Comparison Status",
+      "type": "string"
+    },
+    "domain": {
+      "$ref": "#/$defs/InspectionRouteDomainRef"
+    },
+    "execution": {
+      "$ref": "#/$defs/InspectionExecutionRef"
+    },
+    "generation": {
+      "$ref": "#/$defs/InspectionGenerationMetrics"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/DomainLimitation"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "locations": {
+      "items": {
+        "$ref": "#/$defs/Location"
+      },
+      "title": "Locations",
+      "type": "array"
+    },
+    "most_flexible_scenario_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Most Flexible Scenario Ids",
+      "type": "array"
+    },
+    "primary_measure": {
+      "$ref": "#/$defs/MeasureDefinition"
+    },
+    "scenarios": {
+      "items": {
+        "$ref": "#/$defs/InspectionScenarioResult"
+      },
+      "title": "Scenarios",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "study_id": {
+      "title": "Study Id",
+      "type": "string"
+    },
+    "study_title": {
+      "title": "Study Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain",
+    "study_id",
+    "study_title",
+    "locations",
+    "execution",
+    "primary_measure",
+    "generation",
+    "comparison_status",
+    "most_flexible_scenario_ids",
+    "scenarios",
+    "limitations"
+  ],
+  "title": "InspectionRouteResult",
+  "type": "object"
+}

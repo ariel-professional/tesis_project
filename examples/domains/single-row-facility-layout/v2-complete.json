@@ -1,0 +1,84 @@
+{
+  "schema_version": "2.0.0",
+  "domain": { "id": "single-row-facility-layout", "version": "2.0.0" },
+  "study": {
+    "id": "srfl-v2-integral",
+    "title": "Escenario integral SRFL v2",
+    "description": "Disponibilidad, REL, flujo, prohibición y advertencia.",
+    "stations": [
+      { "id": "a", "name": "A" },
+      { "id": "b", "name": "B" },
+      { "id": "c", "name": "C" }
+    ],
+    "components": [
+      { "id": "base", "station_ids": ["a", "b"] },
+      { "id": "advertencia", "station_ids": ["b", "c"] },
+      { "id": "prohibida", "station_ids": ["a", "c"] }
+    ],
+    "designs": [
+      { "id": "d1", "title": "Diseño integral", "base_component_ids": ["base"] }
+    ]
+  },
+  "decision_model": {
+    "retained_compatible_layouts": true,
+    "rel_closeness": {
+      "requirements": [
+        { "first_station_id": "a", "second_station_id": "b", "level": "A", "reason": "Flujo principal", "provenance": "Estudio de proceso" },
+        { "first_station_id": "a", "second_station_id": "c", "level": "X", "reason": "Riesgo", "provenance": "Norma de seguridad" },
+        { "first_station_id": "b", "second_station_id": "c", "level": "X", "reason": "Revisión operativa", "provenance": "Equipo de proceso" }
+      ]
+    },
+    "adjacency_flow": [
+      {
+        "id": "movimientos",
+        "name": "Movimientos entre áreas",
+        "description": "Movimientos de materiales que quedan atendidos por adyacencias obligatorias.",
+        "direction": "maximize",
+        "unit": "piezas",
+        "reference_period": "hora",
+        "provenance": "ERP",
+        "directed": true,
+        "entries": [
+          { "from_station_id": "a", "to_station_id": "b", "value": "70" },
+          { "from_station_id": "b", "to_station_id": "a", "value": "50" },
+          { "from_station_id": "a", "to_station_id": "c", "value": "0" },
+          { "from_station_id": "c", "to_station_id": "a", "value": "0" },
+          { "from_station_id": "b", "to_station_id": "c", "value": "30" },
+          { "from_station_id": "c", "to_station_id": "b", "value": "0" }
+        ]
+      },
+      {
+        "id": "riesgo-operativo",
+        "name": "Exposición operativa",
+        "description": "Exposición asociada a cada par que queda como adyacencia obligatoria.",
+        "direction": "minimize",
+        "unit": "puntos",
+        "provenance": "Matriz de riesgos",
+        "directed": false,
+        "entries": [
+          { "from_station_id": "a", "to_station_id": "b", "value": "2.5" },
+          { "from_station_id": "a", "to_station_id": "c", "value": "8" },
+          { "from_station_id": "b", "to_station_id": "c", "value": "4" }
+        ]
+      }
+    ],
+    "undesired_prescribed_adjacencies": [
+      { "first_station_id": "a", "second_station_id": "c", "cause": "safety", "explanation": "Debe mantenerse separada", "provenance": "Norma de seguridad", "policy": "forbidden" },
+      { "first_station_id": "b", "second_station_id": "c", "cause": "process", "explanation": "Requiere revisión", "provenance": "Equipo de proceso", "policy": "warn" }
+    ]
+  },
+  "execution": {
+    "methods": { "exact": { "engine": "auto" }, "reference": { "engine": "bruteforce_python_v1" } },
+    "integer_limits": {
+      "max_n": 12, "reference_max_n": 10, "exact_timeout_ms": 30000,
+      "reference_timeout_ms": 30000, "cancellation_grace_ms": 1000,
+      "control_connect_timeout_ms": 1000, "control_response_timeout_ms": 1000,
+      "control_max_message_bytes": 16384, "input_max_bytes": 1048576,
+      "event_max_payload_bytes": 65536, "worker_max_message_bytes": 65536,
+      "runner_log_max_bytes": 5242880, "runner_log_backup_count": 3
+    },
+    "persistence": { "policy": "normal", "persist_events": false },
+    "counting_convention": "undirected_paths_reverse_identified"
+  },
+  "reporting": { "invalid_combinations": "full" }
+}

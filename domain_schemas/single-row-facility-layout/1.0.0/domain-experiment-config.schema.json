@@ -1,0 +1,551 @@
+{
+  "$defs": {
+    "ExactMethodConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "auto",
+          "title": "Engine",
+          "type": "string"
+        }
+      },
+      "required": [
+        "engine"
+      ],
+      "title": "ExactMethodConfig",
+      "type": "object"
+    },
+    "ExecutionConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "counting_convention": {
+          "const": "undirected_paths_reverse_identified",
+          "title": "Counting Convention",
+          "type": "string"
+        },
+        "integer_limits": {
+          "$ref": "#/$defs/IntegerLimits"
+        },
+        "methods": {
+          "$ref": "#/$defs/MethodsConfig"
+        },
+        "persistence": {
+          "$ref": "#/$defs/PersistenceConfig"
+        }
+      },
+      "required": [
+        "methods",
+        "integer_limits",
+        "persistence",
+        "counting_convention"
+      ],
+      "title": "ExecutionConfig",
+      "type": "object"
+    },
+    "FileAttachment": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "file",
+          "title": "Kind",
+          "type": "string"
+        },
+        "media_type": {
+          "enum": [
+            "image/png",
+            "image/jpeg",
+            "image/webp",
+            "application/pdf"
+          ],
+          "title": "Media Type",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "sha256",
+        "name",
+        "media_type",
+        "size_bytes"
+      ],
+      "title": "FileAttachment",
+      "type": "object"
+    },
+    "IntegerLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "cancellation_grace_ms": {
+          "minimum": 0,
+          "title": "Cancellation Grace Ms",
+          "type": "integer"
+        },
+        "control_connect_timeout_ms": {
+          "minimum": 1,
+          "title": "Control Connect Timeout Ms",
+          "type": "integer"
+        },
+        "control_max_message_bytes": {
+          "minimum": 1,
+          "title": "Control Max Message Bytes",
+          "type": "integer"
+        },
+        "control_response_timeout_ms": {
+          "minimum": 1,
+          "title": "Control Response Timeout Ms",
+          "type": "integer"
+        },
+        "event_max_payload_bytes": {
+          "minimum": 1,
+          "title": "Event Max Payload Bytes",
+          "type": "integer"
+        },
+        "exact_timeout_ms": {
+          "minimum": 1,
+          "title": "Exact Timeout Ms",
+          "type": "integer"
+        },
+        "input_max_bytes": {
+          "minimum": 1,
+          "title": "Input Max Bytes",
+          "type": "integer"
+        },
+        "max_n": {
+          "minimum": 1,
+          "title": "Max N",
+          "type": "integer"
+        },
+        "reference_max_n": {
+          "minimum": 1,
+          "title": "Reference Max N",
+          "type": "integer"
+        },
+        "reference_timeout_ms": {
+          "minimum": 1,
+          "title": "Reference Timeout Ms",
+          "type": "integer"
+        },
+        "runner_log_backup_count": {
+          "minimum": 0,
+          "title": "Runner Log Backup Count",
+          "type": "integer"
+        },
+        "runner_log_max_bytes": {
+          "minimum": 1,
+          "title": "Runner Log Max Bytes",
+          "type": "integer"
+        },
+        "worker_max_message_bytes": {
+          "minimum": 1,
+          "title": "Worker Max Message Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_n",
+        "reference_max_n",
+        "exact_timeout_ms",
+        "reference_timeout_ms",
+        "cancellation_grace_ms",
+        "control_connect_timeout_ms",
+        "control_response_timeout_ms",
+        "control_max_message_bytes",
+        "input_max_bytes",
+        "event_max_payload_bytes",
+        "worker_max_message_bytes",
+        "runner_log_max_bytes",
+        "runner_log_backup_count"
+      ],
+      "title": "IntegerLimits",
+      "type": "object"
+    },
+    "LayoutDesign": {
+      "additionalProperties": false,
+      "properties": {
+        "attachments": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "file": "#/$defs/FileAttachment",
+                "link": "#/$defs/LinkAttachment"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/FileAttachment"
+              },
+              {
+                "$ref": "#/$defs/LinkAttachment"
+              }
+            ]
+          },
+          "title": "Attachments",
+          "type": "array"
+        },
+        "base_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Base Component Ids",
+          "type": "array"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "base_component_ids"
+      ],
+      "title": "LayoutDesign",
+      "type": "object"
+    },
+    "LayoutReporting": {
+      "additionalProperties": false,
+      "properties": {
+        "invalid_combinations": {
+          "enum": [
+            "summary",
+            "full"
+          ],
+          "title": "Invalid Combinations",
+          "type": "string"
+        }
+      },
+      "required": [
+        "invalid_combinations"
+      ],
+      "title": "LayoutReporting",
+      "type": "object"
+    },
+    "LayoutStudy": {
+      "additionalProperties": false,
+      "properties": {
+        "attachments": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "file": "#/$defs/FileAttachment",
+                "link": "#/$defs/LinkAttachment"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/FileAttachment"
+              },
+              {
+                "$ref": "#/$defs/LinkAttachment"
+              }
+            ]
+          },
+          "title": "Attachments",
+          "type": "array"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/LinearComponent"
+          },
+          "minItems": 1,
+          "title": "Components",
+          "type": "array"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "designs": {
+          "items": {
+            "$ref": "#/$defs/LayoutDesign"
+          },
+          "minItems": 1,
+          "title": "Designs",
+          "type": "array"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "stations": {
+          "items": {
+            "$ref": "#/$defs/Station"
+          },
+          "minItems": 1,
+          "title": "Stations",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "stations",
+        "components",
+        "designs"
+      ],
+      "title": "LayoutStudy",
+      "type": "object"
+    },
+    "LinearComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "attachments": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "file": "#/$defs/FileAttachment",
+                "link": "#/$defs/LinkAttachment"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/FileAttachment"
+              },
+              {
+                "$ref": "#/$defs/LinkAttachment"
+              }
+            ]
+          },
+          "title": "Attachments",
+          "type": "array"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "station_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "title": "Station Ids",
+          "type": "array"
+        },
+        "utility": {
+          "minimum": 0,
+          "title": "Utility",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "station_ids",
+        "utility"
+      ],
+      "title": "LinearComponent",
+      "type": "object"
+    },
+    "LinkAttachment": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "link",
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "url"
+      ],
+      "title": "LinkAttachment",
+      "type": "object"
+    },
+    "MethodsConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "exact": {
+          "$ref": "#/$defs/ExactMethodConfig"
+        },
+        "reference": {
+          "$ref": "#/$defs/ReferenceMethodConfig"
+        }
+      },
+      "required": [
+        "exact",
+        "reference"
+      ],
+      "title": "MethodsConfig",
+      "type": "object"
+    },
+    "PersistenceConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "persist_events": {
+          "title": "Persist Events",
+          "type": "boolean"
+        },
+        "policy": {
+          "enum": [
+            "normal",
+            "debug"
+          ],
+          "title": "Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy",
+        "persist_events"
+      ],
+      "title": "PersistenceConfig",
+      "type": "object"
+    },
+    "ReferenceMethodConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "bruteforce_python_v1",
+          "title": "Engine",
+          "type": "string"
+        }
+      },
+      "required": [
+        "engine"
+      ],
+      "title": "ReferenceMethodConfig",
+      "type": "object"
+    },
+    "SingleRowDomainRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRef",
+      "type": "object"
+    },
+    "Station": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Station",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRef"
+    },
+    "execution": {
+      "$ref": "#/$defs/ExecutionConfig"
+    },
+    "reporting": {
+      "$ref": "#/$defs/LayoutReporting"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "study": {
+      "$ref": "#/$defs/LayoutStudy"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain",
+    "study",
+    "execution",
+    "reporting"
+  ],
+  "title": "SingleRowFacilityLayoutConfig",
+  "type": "object"
+}

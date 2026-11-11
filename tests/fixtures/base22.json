@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "profiles": {
+    "valid": {
+      "run_status": "completed",
+      "stage_statuses": ["success", "success", "success", "success", "success", "success", "success", "success", "success", "success"],
+      "artifacts": ["artifacts/comparison_result.json", "artifacts/exact_result.json", "artifacts/instance.json", "artifacts/reference_result.json", "artifacts/structure_summary.json", "reports/report.md", "reports/result.json"]
+    },
+    "reference_skip": {
+      "run_status": "completed",
+      "stage_statuses": ["success", "success", "success", "success", "success", "success", "skipped", "success", "success", "success"],
+      "artifacts": ["artifacts/comparison_result.json", "artifacts/exact_result.json", "artifacts/instance.json", "artifacts/reference_result.json", "artifacts/structure_summary.json", "reports/report.md", "reports/result.json"]
+    },
+    "invalid_edge": {
+      "run_status": "failed",
+      "stage_statuses": ["success", "success", "failed", "skipped", "skipped", "skipped", "skipped", "skipped", "success", "success"],
+      "artifacts": ["artifacts/instance_candidate.json", "reports/report.md", "reports/result.json"]
+    },
+    "invalid_forest": {
+      "run_status": "failed",
+      "stage_statuses": ["success", "success", "success", "failed", "skipped", "skipped", "skipped", "skipped", "success", "success"],
+      "artifacts": ["artifacts/instance.json", "reports/report.md", "reports/result.json"]
+    }
+  },
+  "cases": [
+    {"id":"valid_single_edge_n3","profile":"valid","n":3,"edges":[[1,2]],"analysis":{"case_type":"single_edge","component_lengths":[1],"free_vertices":[3],"blocks":2},"reference":{"status":"success","value":2},"diagnostic":null},
+    {"id":"valid_single_edge_n4","profile":"valid","n":4,"edges":[[1,2]],"analysis":{"case_type":"single_edge","component_lengths":[1],"free_vertices":[3,4],"blocks":3},"reference":{"status":"success","value":6},"diagnostic":null},
+    {"id":"valid_two_disjoint_edges_n4","profile":"valid","n":4,"edges":[[1,2],[3,4]],"analysis":{"case_type":"matching","component_lengths":[1,1],"free_vertices":[],"blocks":2},"reference":{"status":"success","value":4},"diagnostic":null},
+    {"id":"valid_path_len2_n4","profile":"valid","n":4,"edges":[[1,2],[2,3]],"analysis":{"case_type":"single_path","component_lengths":[2],"free_vertices":[4],"blocks":2},"reference":{"status":"success","value":2},"diagnostic":null},
+    {"id":"valid_matching_n5","profile":"valid","n":5,"edges":[[1,2],[3,4]],"analysis":{"case_type":"matching","component_lengths":[1,1],"free_vertices":[5],"blocks":3},"reference":{"status":"success","value":12},"diagnostic":null},
+    {"id":"valid_long_path_n5","profile":"valid","n":5,"edges":[[1,2],[2,3],[3,4]],"analysis":{"case_type":"single_path","component_lengths":[3],"free_vertices":[5],"blocks":2},"reference":{"status":"success","value":2},"diagnostic":null},
+    {"id":"valid_extreme_hamiltonian_path_n5","profile":"valid","n":5,"edges":[[1,2],[2,3],[3,4],[4,5]],"analysis":{"case_type":"hamiltonian_path_extreme","component_lengths":[4],"free_vertices":[],"blocks":1},"reference":{"status":"success","value":1},"diagnostic":null},
+    {"id":"valid_extreme_hamiltonian_path_n2","profile":"valid","n":2,"edges":[[1,2]],"analysis":{"case_type":"hamiltonian_path_extreme","component_lengths":[1],"free_vertices":[],"blocks":1},"reference":{"status":"success","value":1},"diagnostic":null},
+    {"id":"valid_large_skip_reference_n12","profile":"reference_skip","n":12,"edges":[[1,2],[3,4],[5,6]],"analysis":{"case_type":"matching","component_lengths":[1,1,1],"free_vertices":[7,8,9,10,11,12],"blocks":9},"reference":{"status":"skipped","code":"BRUTE_FORCE_LIMIT_EXCEEDED"},"diagnostic":null},
+    {"id":"valid_empty_n1","profile":"valid","n":1,"edges":[],"analysis":{"case_type":"empty","component_lengths":[],"free_vertices":[1],"blocks":1},"reference":{"status":"success","value":1},"diagnostic":null},
+    {"id":"valid_empty_n2","profile":"valid","n":2,"edges":[],"analysis":{"case_type":"empty","component_lengths":[],"free_vertices":[1,2],"blocks":2},"reference":{"status":"success","value":1},"diagnostic":null},
+    {"id":"valid_empty_n3","profile":"valid","n":3,"edges":[],"analysis":{"case_type":"empty","component_lengths":[],"free_vertices":[1,2,3],"blocks":3},"reference":{"status":"success","value":3},"diagnostic":null},
+    {"id":"valid_multiple_short_paths_n6","profile":"valid","n":6,"edges":[[1,2],[2,3],[4,5]],"analysis":{"case_type":"multiple_paths","component_lengths":[2,1],"free_vertices":[6],"blocks":3},"reference":{"status":"success","value":12},"diagnostic":null},
+    {"id":"valid_mixed_component_sizes_n7","profile":"valid","n":7,"edges":[[1,2],[2,3],[3,4],[5,6]],"analysis":{"case_type":"multiple_paths","component_lengths":[3,1],"free_vertices":[7],"blocks":3},"reference":{"status":"success","value":12},"diagnostic":null},
+    {"id":"valid_reverse_identified_empty_n4","profile":"valid","n":4,"edges":[],"analysis":{"case_type":"empty","component_lengths":[],"free_vertices":[1,2,3,4],"blocks":4},"reference":{"status":"success","value":12},"diagnostic":null},
+    {"id":"invalid_loop_n4","profile":"invalid_edge","n":4,"edges":[[1,1]],"analysis":null,"reference":null,"diagnostic":"LOOP_EDGE"},
+    {"id":"invalid_vertex_out_of_range_n5","profile":"invalid_edge","n":5,"edges":[[1,6]],"analysis":null,"reference":null,"diagnostic":"VERTEX_OUT_OF_RANGE"},
+    {"id":"invalid_duplicate_edge_n4","profile":"invalid_edge","n":4,"edges":[[1,2],[2,1]],"analysis":null,"reference":null,"diagnostic":"DUPLICATE_EDGE"},
+    {"id":"invalid_cycle_n3","profile":"invalid_forest","n":3,"edges":[[1,2],[2,3],[1,3]],"analysis":null,"reference":null,"diagnostic":"CYCLE_DETECTED"},
+    {"id":"invalid_degree3_n5","profile":"invalid_forest","n":5,"edges":[[1,2],[1,3],[1,4]],"analysis":null,"reference":null,"diagnostic":"MAX_DEGREE_EXCEEDED"},
+    {"id":"invalid_malformed_edge_n4","profile":"invalid_edge","n":4,"edges":[[1,2,3]],"analysis":null,"reference":null,"diagnostic":"MALFORMED_EDGE"},
+    {"id":"invalid_non_integer_vertex_n4","profile":"invalid_edge","n":4,"edges":[[1,"a"]],"analysis":null,"reference":null,"diagnostic":"MALFORMED_EDGE"}
+  ]
+}

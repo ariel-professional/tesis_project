@@ -1,0 +1,1699 @@
+{
+  "$defs": {
+    "AdjacencyFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "cause": {
+          "enum": [
+            "safety",
+            "cross_contamination",
+            "noise",
+            "temperature",
+            "privacy",
+            "interference",
+            "process"
+          ],
+          "title": "Cause",
+          "type": "string"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "type": "string"
+        },
+        "first_station_id": {
+          "title": "First Station Id",
+          "type": "string"
+        },
+        "policy": {
+          "const": "warn",
+          "title": "Policy",
+          "type": "string"
+        },
+        "provenance": {
+          "title": "Provenance",
+          "type": "string"
+        },
+        "second_station_id": {
+          "title": "Second Station Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "first_station_id",
+        "second_station_id",
+        "cause",
+        "explanation",
+        "provenance",
+        "policy"
+      ],
+      "title": "AdjacencyFinding",
+      "type": "object"
+    },
+    "AdjacencyValueContribution": {
+      "additionalProperties": false,
+      "properties": {
+        "first_station_id": {
+          "title": "First Station Id",
+          "type": "string"
+        },
+        "forward_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "title": "Forward Value"
+        },
+        "reverse_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reverse Value"
+        },
+        "second_station_id": {
+          "title": "Second Station Id",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "title": "Total"
+        }
+      },
+      "required": [
+        "first_station_id",
+        "second_station_id",
+        "forward_value",
+        "total"
+      ],
+      "title": "AdjacencyValueContribution",
+      "type": "object"
+    },
+    "AdjacencyValueResult": {
+      "additionalProperties": false,
+      "properties": {
+        "contributions": {
+          "items": {
+            "$ref": "#/$defs/AdjacencyValueContribution"
+          },
+          "title": "Contributions",
+          "type": "array"
+        },
+        "diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "directed": {
+          "title": "Directed",
+          "type": "boolean"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "matrix_id": {
+          "title": "Matrix Id",
+          "type": "string"
+        },
+        "objective_id": {
+          "title": "Objective Id",
+          "type": "string"
+        },
+        "objective_version": {
+          "const": "1",
+          "title": "Objective Version",
+          "type": "string"
+        },
+        "reference_period": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Period"
+        },
+        "status": {
+          "enum": [
+            "conclusive",
+            "inconclusive",
+            "not_applicable",
+            "not_calculated",
+            "invalid"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "objective_id",
+        "objective_version",
+        "matrix_id",
+        "status",
+        "unit",
+        "directed",
+        "direction"
+      ],
+      "title": "AdjacencyValueResult",
+      "type": "object"
+    },
+    "CapturedFlowResult": {
+      "additionalProperties": false,
+      "properties": {
+        "contributions": {
+          "items": {
+            "$ref": "#/$defs/FlowContribution"
+          },
+          "title": "Contributions",
+          "type": "array"
+        },
+        "diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "directed": {
+          "title": "Directed",
+          "type": "boolean"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "horizon": {
+          "title": "Horizon",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "objective_id": {
+          "const": "captured-adjacency-flow",
+          "title": "Objective Id",
+          "type": "string"
+        },
+        "objective_version": {
+          "const": "1",
+          "title": "Objective Version",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "conclusive",
+            "inconclusive",
+            "not_applicable",
+            "not_calculated",
+            "invalid"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "objective_id",
+        "objective_version",
+        "status",
+        "unit",
+        "horizon",
+        "directed",
+        "direction"
+      ],
+      "title": "CapturedFlowResult",
+      "type": "object"
+    },
+    "DomainDiagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_locations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Locations",
+          "type": "array"
+        },
+        "core_code": {
+          "title": "Core Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "core_code",
+        "message",
+        "affected_locations"
+      ],
+      "title": "DomainDiagnostic",
+      "type": "object"
+    },
+    "DomainLimitation": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "DomainLimitation",
+      "type": "object"
+    },
+    "ExactFraction": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Denominator"
+        },
+        "numerator": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Numerator"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "ExactFraction",
+      "type": "object"
+    },
+    "FlowContribution": {
+      "additionalProperties": false,
+      "properties": {
+        "first_station_id": {
+          "title": "First Station Id",
+          "type": "string"
+        },
+        "forward_quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "title": "Forward Quantity"
+        },
+        "reverse_quantity": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reverse Quantity"
+        },
+        "second_station_id": {
+          "title": "Second Station Id",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+              "type": "string"
+            }
+          ],
+          "title": "Total"
+        }
+      },
+      "required": [
+        "first_station_id",
+        "second_station_id",
+        "forward_quantity",
+        "total"
+      ],
+      "title": "FlowContribution",
+      "type": "object"
+    },
+    "GenerationMetricsV2": {
+      "additionalProperties": false,
+      "properties": {
+        "core_cases": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Core Cases"
+        },
+        "cycle_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Cycle Pruned Branches"
+        },
+        "degree_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Degree Pruned Branches"
+        },
+        "duplicate_forests": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duplicate Forests"
+        },
+        "forbidden_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Forbidden Combinations"
+        },
+        "invalid_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Combinations"
+        },
+        "structural_invalid_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Structural Invalid Combinations"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        },
+        "valid_selections": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Selections"
+        }
+      },
+      "required": [
+        "theoretical_combinations",
+        "cycle_pruned_branches",
+        "degree_pruned_branches",
+        "valid_selections",
+        "invalid_combinations",
+        "structural_invalid_combinations",
+        "forbidden_combinations",
+        "duplicate_forests",
+        "core_cases"
+      ],
+      "title": "GenerationMetricsV2",
+      "type": "object"
+    },
+    "InvalidCombinationSummaryV2": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_station_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Station Ids",
+          "type": "array"
+        },
+        "cause": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cause"
+        },
+        "combination_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Combination Count"
+        },
+        "conflicting_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Conflicting Component Ids",
+          "type": "array"
+        },
+        "conflicting_edges": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Conflicting Edges",
+          "type": "array"
+        },
+        "explanation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Explanation"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provenance"
+        },
+        "reason": {
+          "enum": [
+            "cycle",
+            "degree_exceeded",
+            "forbidden"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason",
+        "combination_count",
+        "affected_station_ids",
+        "conflicting_edges",
+        "conflicting_component_ids"
+      ],
+      "title": "InvalidCombinationSummaryV2",
+      "type": "object"
+    },
+    "LayoutCaseResultV2": {
+      "additionalProperties": false,
+      "properties": {
+        "added_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Added Component Ids",
+          "type": "array"
+        },
+        "adjacency_values": {
+          "items": {
+            "$ref": "#/$defs/AdjacencyValueResult"
+          },
+          "title": "Adjacency Values",
+          "type": "array"
+        },
+        "captured_flow": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CapturedFlowResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "compatible_layout_count": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RouteCount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Component Ids",
+          "type": "array"
+        },
+        "core_run_id": {
+          "title": "Core Run Id",
+          "type": "string"
+        },
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/DomainDiagnostic"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Edges",
+          "type": "array"
+        },
+        "feasibility": {
+          "enum": [
+            "feasible",
+            "invalid_constraints",
+            "inconclusive"
+          ],
+          "title": "Feasibility",
+          "type": "string"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/AdjacencyFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "forest_id": {
+          "title": "Forest Id",
+          "type": "string"
+        },
+        "forest_structure": {
+          "$ref": "#/$defs/LinearForestStructure"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/DomainLimitation"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "mandatory_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Mandatory Component Ids",
+          "type": "array"
+        },
+        "pareto_classification": {
+          "$ref": "#/$defs/ParetoClassification"
+        },
+        "prescribed_edge_count": {
+          "minimum": 0,
+          "title": "Prescribed Edge Count",
+          "type": "integer"
+        },
+        "rel_closeness": {
+          "items": {
+            "$ref": "#/$defs/RelLevelResult"
+          },
+          "title": "Rel Closeness",
+          "type": "array"
+        },
+        "retained_layouts": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RetainedLayoutsResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "technical_metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TechnicalMetrics"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "case_id",
+        "forest_id",
+        "design_id",
+        "mandatory_component_ids",
+        "added_component_ids",
+        "component_ids",
+        "edges",
+        "forest_structure",
+        "prescribed_edge_count",
+        "core_run_id",
+        "feasibility",
+        "compatible_layout_count",
+        "pareto_classification",
+        "technical_metrics",
+        "diagnostics",
+        "limitations"
+      ],
+      "title": "LayoutCaseResultV2",
+      "type": "object"
+    },
+    "LayoutDesignResultV2": {
+      "additionalProperties": false,
+      "properties": {
+        "base_case_id": {
+          "title": "Base Case Id",
+          "type": "string"
+        },
+        "base_layout_count": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RouteCount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "candidate_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidate Component Ids",
+          "type": "array"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/LayoutCaseResultV2"
+          },
+          "title": "Cases",
+          "type": "array"
+        },
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        },
+        "design_title": {
+          "title": "Design Title",
+          "type": "string"
+        },
+        "invalid_combination_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Combination Count"
+        },
+        "invalid_combination_summaries": {
+          "items": {
+            "$ref": "#/$defs/InvalidCombinationSummaryV2"
+          },
+          "title": "Invalid Combination Summaries",
+          "type": "array"
+        },
+        "mandatory_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Mandatory Component Ids",
+          "type": "array"
+        },
+        "pareto_case_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Pareto Case Ids",
+          "type": "array"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        },
+        "valid_case_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Case Count"
+        }
+      },
+      "required": [
+        "design_id",
+        "design_title",
+        "mandatory_component_ids",
+        "candidate_component_ids",
+        "theoretical_combinations",
+        "valid_case_count",
+        "invalid_combination_count",
+        "invalid_combination_summaries",
+        "base_case_id",
+        "base_layout_count",
+        "cases",
+        "pareto_case_ids"
+      ],
+      "title": "LayoutDesignResultV2",
+      "type": "object"
+    },
+    "LinearForestStructure": {
+      "additionalProperties": false,
+      "properties": {
+        "isolated_station_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Isolated Station Ids",
+          "type": "array"
+        },
+        "paths": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Paths",
+          "type": "array"
+        }
+      },
+      "required": [
+        "paths",
+        "isolated_station_ids"
+      ],
+      "title": "LinearForestStructure",
+      "type": "object"
+    },
+    "ObjectiveDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "criterion",
+            "indicator"
+          ],
+          "title": "Classification",
+          "type": "string"
+        },
+        "decision_question": {
+          "title": "Decision Question",
+          "type": "string"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "direction_mode": {
+          "default": "fixed",
+          "enum": [
+            "fixed",
+            "per_instance"
+          ],
+          "title": "Direction Mode",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Limitations",
+          "type": "array"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "repeatable_input": {
+          "default": false,
+          "title": "Repeatable Input",
+          "type": "boolean"
+        },
+        "required_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Required Inputs",
+          "type": "array"
+        },
+        "scope": {
+          "enum": [
+            "case",
+            "prescribed_adjacencies"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "version": {
+          "const": "1",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "name",
+        "summary",
+        "decision_question",
+        "classification",
+        "direction",
+        "unit",
+        "formula",
+        "scope",
+        "limitations",
+        "required_inputs",
+        "evidence"
+      ],
+      "title": "ObjectiveDefinition",
+      "type": "object"
+    },
+    "ObjectiveSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "$ref": "#/$defs/ObjectiveDefinition"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "title": "ObjectiveSnapshot",
+      "type": "object"
+    },
+    "ParetoClassification": {
+      "additionalProperties": false,
+      "properties": {
+        "differences": {
+          "items": {
+            "$ref": "#/$defs/ParetoDifference"
+          },
+          "title": "Differences",
+          "type": "array"
+        },
+        "dominated": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dominated"
+        },
+        "dominated_by_case_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dominated By Case Ids",
+          "type": "array"
+        },
+        "objective_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Objective Refs",
+          "type": "array"
+        },
+        "pareto_optimal": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pareto Optimal"
+        },
+        "status": {
+          "enum": [
+            "conclusive",
+            "inconclusive"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "objective_refs",
+        "dominated",
+        "pareto_optimal"
+      ],
+      "title": "ParetoClassification",
+      "type": "object"
+    },
+    "ParetoDifference": {
+      "additionalProperties": false,
+      "properties": {
+        "objective_id": {
+          "title": "Objective Id",
+          "type": "string"
+        },
+        "other_case_id": {
+          "title": "Other Case Id",
+          "type": "string"
+        },
+        "other_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactFraction"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Other Value"
+        },
+        "preferred_case_id": {
+          "title": "Preferred Case Id",
+          "type": "string"
+        },
+        "preferred_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactFraction"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Preferred Value"
+        }
+      },
+      "required": [
+        "objective_id",
+        "preferred_case_id",
+        "preferred_value",
+        "other_case_id",
+        "other_value"
+      ],
+      "title": "ParetoDifference",
+      "type": "object"
+    },
+    "ProducerRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "ProducerRef",
+      "type": "object"
+    },
+    "RelLevelResult": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "exclusiveMinimum": 0,
+          "title": "Denominator",
+          "type": "integer"
+        },
+        "diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "fraction": {
+          "$ref": "#/$defs/ExactFraction"
+        },
+        "guaranteed_pairs": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Guaranteed Pairs",
+          "type": "array"
+        },
+        "level": {
+          "enum": [
+            "A",
+            "E",
+            "I",
+            "O"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "numerator": {
+          "minimum": 0,
+          "title": "Numerator",
+          "type": "integer"
+        },
+        "objective_id": {
+          "title": "Objective Id",
+          "type": "string"
+        },
+        "objective_version": {
+          "const": "1",
+          "title": "Objective Version",
+          "type": "string"
+        },
+        "pending_pairs": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Pending Pairs",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "conclusive",
+            "inconclusive",
+            "not_applicable",
+            "not_calculated",
+            "invalid"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "objective_id",
+        "objective_version",
+        "level",
+        "status",
+        "numerator",
+        "denominator",
+        "fraction",
+        "guaranteed_pairs",
+        "pending_pairs",
+        "unit",
+        "direction"
+      ],
+      "title": "RelLevelResult",
+      "type": "object"
+    },
+    "RetainedLayoutsResult": {
+      "additionalProperties": false,
+      "properties": {
+        "base_layout_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Base Layout Count"
+        },
+        "compatible_layout_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Compatible Layout Count"
+        },
+        "diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "fraction": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactFraction"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "objective_id": {
+          "title": "Objective Id",
+          "type": "string"
+        },
+        "objective_version": {
+          "const": "1",
+          "title": "Objective Version",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "conclusive",
+            "inconclusive",
+            "not_applicable",
+            "not_calculated",
+            "invalid"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "objective_id",
+        "objective_version",
+        "status",
+        "unit",
+        "direction"
+      ],
+      "title": "RetainedLayoutsResult",
+      "type": "object"
+    },
+    "RouteCount": {
+      "additionalProperties": false,
+      "properties": {
+        "comparison_status": {
+          "anyOf": [
+            {
+              "enum": [
+                "match",
+                "mismatch",
+                "not_applicable"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Comparison Status"
+        },
+        "counting_convention": {
+          "const": "undirected_paths_reverse_identified",
+          "title": "Counting Convention",
+          "type": "string"
+        },
+        "exact_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Exact Value"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProducerRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reference_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reference Value"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "value",
+        "method",
+        "exact_value",
+        "reference_value",
+        "counting_convention",
+        "comparison_status"
+      ],
+      "title": "RouteCount",
+      "type": "object"
+    },
+    "SingleRowDomainRefV2": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "2.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRefV2",
+      "type": "object"
+    },
+    "StationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "StationV2",
+      "type": "object"
+    },
+    "TechnicalMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates_examined": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Candidates Examined"
+        },
+        "duration_ms": {
+          "minimum": 0,
+          "title": "Duration Ms",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "duration_ms",
+        "candidates_examined"
+      ],
+      "title": "TechnicalMetrics",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "designs": {
+      "items": {
+        "$ref": "#/$defs/LayoutDesignResultV2"
+      },
+      "title": "Designs",
+      "type": "array"
+    },
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRefV2"
+    },
+    "execution": {
+      "additionalProperties": true,
+      "title": "Execution",
+      "type": "object"
+    },
+    "generation": {
+      "$ref": "#/$defs/GenerationMetricsV2"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/DomainLimitation"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "objective_snapshots": {
+      "items": {
+        "$ref": "#/$defs/ObjectiveSnapshot"
+      },
+      "title": "Objective Snapshots",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "stations": {
+      "items": {
+        "$ref": "#/$defs/StationV2"
+      },
+      "title": "Stations",
+      "type": "array"
+    },
+    "study_description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Study Description"
+    },
+    "study_id": {
+      "title": "Study Id",
+      "type": "string"
+    },
+    "study_title": {
+      "title": "Study Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain",
+    "study_id",
+    "study_title",
+    "study_description",
+    "stations",
+    "execution",
+    "generation",
+    "objective_snapshots",
+    "designs",
+    "limitations"
+  ],
+  "title": "SingleRowFacilityLayoutResultV2",
+  "type": "object"
+}

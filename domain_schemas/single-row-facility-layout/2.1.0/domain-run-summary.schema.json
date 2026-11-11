@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "SingleRowDomainRefV21": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "2.1.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRefV21",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRefV21"
+    },
+    "domain_experiment_id": {
+      "title": "Domain Experiment Id",
+      "type": "string"
+    },
+    "domain_experiment_reference": {
+      "title": "Domain Experiment Reference",
+      "type": "string"
+    },
+    "fast_counters": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Fast Counters"
+    },
+    "mode": {
+      "default": "standard",
+      "enum": [
+        "standard",
+        "high_performance"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "run_reference": {
+      "title": "Run Reference",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "created",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_reference",
+    "run_id",
+    "domain_experiment_reference",
+    "domain_experiment_id",
+    "domain",
+    "display_name",
+    "status",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "SingleRowRunSummaryV21",
+  "type": "object"
+}

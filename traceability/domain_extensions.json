@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "suites": {
+    "DOMAIN-ACCEPTANCE": ["tests/domain_extensions/test_acceptance.py"],
+    "DOMAIN-ARCHITECTURE": ["tests/domain_extensions/test_architecture.py"],
+    "DOMAIN-CLI": ["tests/domain_extensions/test_cli.py"],
+    "DOMAIN-CONTRACTS": ["tests/domain_extensions/test_contracts.py"],
+    "DOMAIN-EDGE-CASES": ["tests/domain_extensions/test_edge_cases.py"],
+    "DOMAIN-INTEGRATION": ["tests/domain_extensions/test_integration.py"],
+    "DOMAIN-LAYOUT": ["tests/domain_extensions/test_single_row_facility_layout.py"],
+    "DOMAIN-SRFL-V2": ["tests/domain_extensions/test_utility_objectives.py"],
+    "DOMAIN-WORKSPACE": ["tests/cli/test_workspace_selection.py"]
+  },
+  "requirements": [
+    {"id":"DE-RF-01","tests":["DOMAIN-CONTRACTS"],"evidence":["tests/domain_extensions/test_contracts.py::test_inspection_study_is_strict_canonical_and_validates_references"]},
+    {"id":"DE-RF-02","tests":["DOMAIN-CONTRACTS"],"evidence":["tests/domain_extensions/test_contracts.py::test_projection_is_deterministic_reversible_and_grouped"]},
+    {"id":"DE-RF-03","tests":["DOMAIN-INTEGRATION"],"evidence":["tests/domain_extensions/test_integration.py::test_prepare_persists_an_autonomous_grouped_projection_without_core_experiment"]},
+    {"id":"DE-RF-04","tests":["DOMAIN-ACCEPTANCE","DOMAIN-WORKSPACE"],"evidence":["tests/domain_extensions/test_acceptance.py::test_inspection_route_comparative_study_end_to_end","tests/cli/test_workspace_selection.py::test_workspace_selector_lives_in_the_application_boundary"]},
+    {"id":"DE-RF-05","tests":["DOMAIN-INTEGRATION"],"evidence":["tests/domain_extensions/test_integration.py::test_grouped_domain_execution_creates_child_runs_without_domain_files"]},
+    {"id":"DE-RF-06","tests":["DOMAIN-CONTRACTS","DOMAIN-ACCEPTANCE"],"evidence":["tests/domain_extensions/test_contracts.py::test_interpretation_maps_structure_count_and_metrics"]},
+    {"id":"DE-RF-07","tests":["DOMAIN-CONTRACTS","DOMAIN-EDGE-CASES"],"evidence":["tests/domain_extensions/test_contracts.py::test_generation_omits_invalid_scenario_and_keeps_progress","tests/domain_extensions/test_edge_cases.py::test_interpretation_handles_skips_and_unknown_diagnostics"]},
+    {"id":"DE-RF-08","tests":["DOMAIN-CLI","DOMAIN-WORKSPACE"],"evidence":["tests/domain_extensions/test_cli.py::test_run_is_repeatable_and_render_does_not_run_pipeline","tests/cli/test_workspace_selection.py::test_unique_immediate_workspace_is_discovered_and_files_are_ignored"]},
+    {"id":"DE-RF-09","tests":["DOMAIN-CLI"],"evidence":["tests/domain_extensions/test_cli.py::test_resume_diagnoses_an_experiment_reference_and_lists_its_runs","tests/domain_extensions/test_cli.py::test_grouped_experiment_reference_lists_its_domain_run"]},
+    {"id":"DE-RF-10","tests":["DOMAIN-LAYOUT"],"evidence":["tests/domain_extensions/test_single_row_facility_layout.py::test_cycle_is_pruned_before_a_core_case_is_built","tests/domain_extensions/test_single_row_facility_layout.py::test_hospital_k8_matches_the_application_case_and_pareto_frontier","tests/domain_extensions/test_single_row_facility_layout.py::test_industrial_k8_has_the_expected_non_trivial_frontier"]},
+    {"id":"DE-RF-11","tests":["DOMAIN-LAYOUT"],"evidence":["tests/domain_extensions/test_single_row_facility_layout.py::test_valid_overlap_extends_a_path_and_degree_three_is_pruned","tests/domain_extensions/test_single_row_facility_layout.py::test_invalid_base_and_reversed_component_duplicates_fail_prepare","tests/domain_extensions/test_single_row_facility_layout.py::test_each_design_derives_its_own_optional_components"]},
+    {"id":"DE-RF-12","tests":["DOMAIN-LAYOUT"],"evidence":["tests/domain_extensions/test_single_row_facility_layout.py::test_hospital_k8_matches_the_application_case_and_pareto_frontier","tests/domain_extensions/test_single_row_facility_layout.py::test_pareto_ties_zero_utility_and_inconclusive_counts_are_conservative"]},
+    {"id":"DE-RF-13","tests":["DOMAIN-LAYOUT"],"evidence":["tests/domain_extensions/test_single_row_facility_layout.py::test_grouped_execution_deduplicates_core_cases_and_renders_without_new_runs","tests/domain_extensions/test_single_row_facility_layout.py::test_grouped_execution_runs_an_equal_forest_once","tests/domain_extensions/test_single_row_facility_layout.py::test_decisions_sharing_a_forest_keep_distinct_utility_and_case_identity"]},
+    {"id":"DE-RF-14","tests":["DOMAIN-CONTRACTS","DOMAIN-ACCEPTANCE"],"evidence":["tests/domain_extensions/test_contracts.py::test_comparative_result_highlights_maximum_and_local_invalid","tests/domain_extensions/test_acceptance.py::test_inspection_route_comparative_study_end_to_end"]},
+    {"id":"DE-RF-15","tests":["DOMAIN-CONTRACTS","DOMAIN-INTEGRATION"],"evidence":["tests/domain_extensions/test_contracts.py::test_generation_omits_invalid_scenario_and_keeps_progress","tests/domain_extensions/test_integration.py::test_all_invalid_inspection_study_is_not_applicable_and_never_runs_core"]},
+    {"id":"DE-RF-16","tests":["DOMAIN-INTEGRATION"],"evidence":["tests/domain_extensions/test_integration.py::test_equal_inspection_policies_keep_scenarios_and_share_one_core_run"]},
+    {"id":"DE-RNF-01","tests":["DOMAIN-ARCHITECTURE"],"evidence":["tests/domain_extensions/test_architecture.py::test_companion_package_imports_only_the_core_application_boundary"]},
+    {"id":"DE-RNF-02","tests":["DOMAIN-CONTRACTS"],"evidence":["tests/domain_extensions/test_contracts.py::test_projection_is_deterministic_reversible_and_grouped"]},
+    {"id":"DE-RNF-03","tests":["DOMAIN-CONTRACTS","DOMAIN-LAYOUT"],"evidence":["tests/domain_extensions/test_contracts.py::test_inspection_study_is_strict_canonical_and_validates_references","tests/domain_extensions/test_single_row_facility_layout.py::test_layout_contract_rejects_catalog_inconsistencies","tests/domain_extensions/test_single_row_facility_layout.py::test_reporting_policy_is_required","tests/domain_extensions/test_single_row_facility_layout.py::test_utility_is_a_required_non_negative_integer"]},
+    {"id":"DE-RNF-04","tests":["DOMAIN-INTEGRATION"],"evidence":["tests/domain_extensions/test_integration.py::test_grouped_domain_execution_creates_child_runs_without_domain_files"]},
+    {"id":"DE-RNF-05","tests":["DOMAIN-ARCHITECTURE"],"evidence":["tests/domain_extensions/test_architecture.py::test_domain_adapter_does_not_spawn_or_import_either_cli"]},
+    {"id":"DE-RNF-06","tests":["DOMAIN-ARCHITECTURE"],"evidence":["tests/domain_extensions/test_architecture.py::test_both_cli_adapters_use_core_commands_without_importing_each_other"]},
+    {"id":"DE-RNF-07","tests":["DOMAIN-ARCHITECTURE","DOMAIN-LAYOUT"],"evidence":["tests/domain_extensions/test_architecture.py::test_common_domain_infrastructure_has_no_inspection_route_types","tests/domain_extensions/test_single_row_facility_layout.py::test_cycle_is_pruned_before_a_core_case_is_built"]},
+    {"id":"DE-RNF-08","tests":["DOMAIN-ARCHITECTURE","DOMAIN-INTEGRATION"],"evidence":["tests/domain_extensions/test_architecture.py::test_common_domain_infrastructure_has_no_inspection_route_types","tests/domain_extensions/test_integration.py::test_equal_inspection_policies_keep_scenarios_and_share_one_core_run"]},
+    {"id":"DE-RF-17","tests":["DOMAIN-SRFL-V2"],"evidence":["tests/domain_extensions/test_utility_objectives.py::test_v2_pipeline_types_pareto_warnings_and_forbidden_partition","tests/domain_extensions/test_utility_objectives.py::test_v2_accepts_signed_and_zero_quantitative_matrices","tests/domain_extensions/test_utility_objectives.py::test_v2_active_duration_excludes_cancelled_and_interrupted_gaps"]},
+    {"id":"DE-RF-18","tests":["DOMAIN-SRFL-V2"],"evidence":["tests/domain_extensions/test_utility_objectives.py::test_rel_excludes_u_and_x_from_objective_dimensions","tests/domain_extensions/test_utility_objectives.py::test_v2_requires_exactly_one_policy_for_every_rel_x","tests/domain_extensions/test_utility_objectives.py::test_v2_accepts_rel_with_only_u_and_x_without_priority_dimensions"]},
+    {"id":"DE-RF-19","tests":["DOMAIN-SRFL-V2"],"evidence":["tests/domain_extensions/test_utility_objectives.py::test_pareto_uses_all_dimensions_and_keeps_equal_points","tests/domain_extensions/test_utility_objectives.py::test_v2_pipeline_types_pareto_warnings_and_forbidden_partition"]}
+  ]
+}

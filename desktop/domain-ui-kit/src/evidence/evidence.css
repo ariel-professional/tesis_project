@@ -1,0 +1,20 @@
+.ui-evidence { width: 100%; min-width: 0; display: grid; gap: var(--space-3); }
+.ui-evidence__description { white-space: pre-wrap; overflow-wrap: anywhere; }
+.ui-evidence__tabs { display: flex; flex-wrap: wrap; gap: var(--space-2); border-bottom: 1px solid var(--color-border); }
+.ui-evidence__tabs button { border: 0; background: transparent; color: var(--color-text-secondary); padding: var(--space-3); cursor: pointer; }
+.ui-evidence__tabs [aria-selected=true] { color: var(--color-accent); border-bottom: 2px solid currentColor; }
+.ui-evidence__drop { display: grid; gap: var(--space-3); padding: var(--space-4); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-small); text-align: center; }
+.ui-evidence__drop:focus-within { border-color: var(--color-accent); }
+.ui-evidence__select { position: relative; color: var(--color-accent); cursor: pointer; }
+.ui-evidence__select input { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
+.ui-evidence__link { display: grid; gap: var(--space-3); }
+.ui-evidence__list { list-style: none; padding: 0; margin: 0; }
+.ui-evidence__list li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.ui-evidence__list li > div:first-child { flex: 1; min-width: 120px; overflow-wrap: anywhere; }
+.ui-evidence__list small { display: block; color: var(--color-text-muted); }
+.ui-evidence__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.ui-modal.ui-attachment-modal { width: min(1200px, 96vw); max-width: 96vw; }
+.ui-attachment-viewport { overflow: auto; height: min(72vh, 900px); margin-top: var(--space-3); background: var(--color-background); }
+.ui-attachment-viewport canvas, .ui-attachment-viewport img { display: block; margin: auto; }
+.srfl-evidence-details { min-width: 0; margin-top: var(--space-3); }
+.srfl-evidence-details > summary { cursor: pointer; color: var(--color-accent); margin-bottom: var(--space-3); }

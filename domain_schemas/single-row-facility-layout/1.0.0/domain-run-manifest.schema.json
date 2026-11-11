@@ -1,0 +1,320 @@
+{
+  "$defs": {
+    "CoreRunAttempt": {
+      "additionalProperties": false,
+      "description": "A durable attempt to execute one projected case in CORE.",
+      "properties": {
+        "core_run_id": {
+          "title": "Core Run Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "created",
+            "running",
+            "completed",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "core_run_id",
+        "status"
+      ],
+      "title": "CoreRunAttempt",
+      "type": "object"
+    },
+    "GenerationMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "core_cases": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Core Cases"
+        },
+        "cycle_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Cycle Pruned Branches"
+        },
+        "degree_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Degree Pruned Branches"
+        },
+        "duplicate_forests": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duplicate Forests"
+        },
+        "invalid_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Combinations"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        },
+        "valid_selections": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Selections"
+        }
+      },
+      "required": [
+        "theoretical_combinations",
+        "cycle_pruned_branches",
+        "degree_pruned_branches",
+        "valid_selections",
+        "invalid_combinations",
+        "duplicate_forests",
+        "core_cases"
+      ],
+      "title": "GenerationMetrics",
+      "type": "object"
+    },
+    "LayoutCaseOrigin": {
+      "additionalProperties": false,
+      "properties": {
+        "added_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Added Component Ids",
+          "type": "array"
+        },
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "design_id",
+        "added_component_ids"
+      ],
+      "title": "LayoutCaseOrigin",
+      "type": "object"
+    },
+    "LayoutCasePayload": {
+      "additionalProperties": false,
+      "properties": {
+        "component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Component Ids",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Edges",
+          "type": "array"
+        }
+      },
+      "required": [
+        "component_ids",
+        "edges"
+      ],
+      "title": "LayoutCasePayload",
+      "type": "object"
+    },
+    "PersistedCase": {
+      "additionalProperties": false,
+      "properties": {
+        "attempts": {
+          "items": {
+            "$ref": "#/$defs/CoreRunAttempt"
+          },
+          "minItems": 1,
+          "title": "Attempts",
+          "type": "array"
+        },
+        "core_experiment_id": {
+          "title": "Core Experiment Id",
+          "type": "string"
+        },
+        "forest_id": {
+          "title": "Forest Id",
+          "type": "string"
+        },
+        "origins": {
+          "items": {
+            "$ref": "#/$defs/LayoutCaseOrigin"
+          },
+          "title": "Origins",
+          "type": "array"
+        },
+        "payload": {
+          "$ref": "#/$defs/LayoutCasePayload"
+        }
+      },
+      "required": [
+        "forest_id",
+        "core_experiment_id",
+        "origins",
+        "payload",
+        "attempts"
+      ],
+      "title": "PersistedCase",
+      "type": "object"
+    },
+    "SingleRowDomainRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/PersistedCase"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRef"
+    },
+    "domain_experiment_id": {
+      "title": "Domain Experiment Id",
+      "type": "string"
+    },
+    "domain_run_id": {
+      "title": "Domain Run Id",
+      "type": "string"
+    },
+    "generation": {
+      "$ref": "#/$defs/GenerationMetrics"
+    },
+    "generator_cursor": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Generator Cursor"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "created",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain_run_id",
+    "domain_experiment_id",
+    "domain",
+    "display_name",
+    "status",
+    "generator_cursor",
+    "generation",
+    "cases",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "DomainRunManifest",
+  "type": "object"
+}

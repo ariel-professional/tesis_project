@@ -1,0 +1,327 @@
+{
+  "$defs": {
+    "ExactMethodConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "auto",
+          "title": "Engine",
+          "type": "string"
+        }
+      },
+      "required": [
+        "engine"
+      ],
+      "title": "ExactMethodConfig",
+      "type": "object"
+    },
+    "ExecutionConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "counting_convention": {
+          "const": "undirected_paths_reverse_identified",
+          "title": "Counting Convention",
+          "type": "string"
+        },
+        "integer_limits": {
+          "$ref": "#/$defs/IntegerLimits"
+        },
+        "methods": {
+          "$ref": "#/$defs/MethodsConfig"
+        },
+        "persistence": {
+          "$ref": "#/$defs/PersistenceConfig"
+        }
+      },
+      "required": [
+        "methods",
+        "integer_limits",
+        "persistence",
+        "counting_convention"
+      ],
+      "title": "ExecutionConfig",
+      "type": "object"
+    },
+    "InspectionRouteDomainRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "inspection-route",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "InspectionRouteDomainRef",
+      "type": "object"
+    },
+    "InspectionScenario": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "required_consecutive_visits": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Required Consecutive Visits",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "required_consecutive_visits"
+      ],
+      "title": "InspectionScenario",
+      "type": "object"
+    },
+    "InspectionStudy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "locations": {
+          "items": {
+            "$ref": "#/$defs/Location"
+          },
+          "minItems": 1,
+          "title": "Locations",
+          "type": "array"
+        },
+        "scenarios": {
+          "items": {
+            "$ref": "#/$defs/InspectionScenario"
+          },
+          "minItems": 2,
+          "title": "Scenarios",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "locations",
+        "scenarios"
+      ],
+      "title": "InspectionStudy",
+      "type": "object"
+    },
+    "IntegerLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "cancellation_grace_ms": {
+          "minimum": 0,
+          "title": "Cancellation Grace Ms",
+          "type": "integer"
+        },
+        "control_connect_timeout_ms": {
+          "minimum": 1,
+          "title": "Control Connect Timeout Ms",
+          "type": "integer"
+        },
+        "control_max_message_bytes": {
+          "minimum": 1,
+          "title": "Control Max Message Bytes",
+          "type": "integer"
+        },
+        "control_response_timeout_ms": {
+          "minimum": 1,
+          "title": "Control Response Timeout Ms",
+          "type": "integer"
+        },
+        "event_max_payload_bytes": {
+          "minimum": 1,
+          "title": "Event Max Payload Bytes",
+          "type": "integer"
+        },
+        "exact_timeout_ms": {
+          "minimum": 1,
+          "title": "Exact Timeout Ms",
+          "type": "integer"
+        },
+        "input_max_bytes": {
+          "minimum": 1,
+          "title": "Input Max Bytes",
+          "type": "integer"
+        },
+        "max_n": {
+          "minimum": 1,
+          "title": "Max N",
+          "type": "integer"
+        },
+        "reference_max_n": {
+          "minimum": 1,
+          "title": "Reference Max N",
+          "type": "integer"
+        },
+        "reference_timeout_ms": {
+          "minimum": 1,
+          "title": "Reference Timeout Ms",
+          "type": "integer"
+        },
+        "runner_log_backup_count": {
+          "minimum": 0,
+          "title": "Runner Log Backup Count",
+          "type": "integer"
+        },
+        "runner_log_max_bytes": {
+          "minimum": 1,
+          "title": "Runner Log Max Bytes",
+          "type": "integer"
+        },
+        "worker_max_message_bytes": {
+          "minimum": 1,
+          "title": "Worker Max Message Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_n",
+        "reference_max_n",
+        "exact_timeout_ms",
+        "reference_timeout_ms",
+        "cancellation_grace_ms",
+        "control_connect_timeout_ms",
+        "control_response_timeout_ms",
+        "control_max_message_bytes",
+        "input_max_bytes",
+        "event_max_payload_bytes",
+        "worker_max_message_bytes",
+        "runner_log_max_bytes",
+        "runner_log_backup_count"
+      ],
+      "title": "IntegerLimits",
+      "type": "object"
+    },
+    "Location": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Location",
+      "type": "object"
+    },
+    "MethodsConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "exact": {
+          "$ref": "#/$defs/ExactMethodConfig"
+        },
+        "reference": {
+          "$ref": "#/$defs/ReferenceMethodConfig"
+        }
+      },
+      "required": [
+        "exact",
+        "reference"
+      ],
+      "title": "MethodsConfig",
+      "type": "object"
+    },
+    "PersistenceConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "persist_events": {
+          "title": "Persist Events",
+          "type": "boolean"
+        },
+        "policy": {
+          "enum": [
+            "normal",
+            "debug"
+          ],
+          "title": "Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy",
+        "persist_events"
+      ],
+      "title": "PersistenceConfig",
+      "type": "object"
+    },
+    "ReferenceMethodConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "bruteforce_python_v1",
+          "title": "Engine",
+          "type": "string"
+        }
+      },
+      "required": [
+        "engine"
+      ],
+      "title": "ReferenceMethodConfig",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "domain": {
+      "$ref": "#/$defs/InspectionRouteDomainRef"
+    },
+    "execution": {
+      "$ref": "#/$defs/ExecutionConfig"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "study": {
+      "$ref": "#/$defs/InspectionStudy"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain",
+    "study",
+    "execution"
+  ],
+  "title": "InspectionRouteConfig",
+  "type": "object"
+}

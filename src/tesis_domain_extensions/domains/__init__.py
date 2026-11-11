@@ -1,0 +1,1 @@
+"""First-party domain adapters."""

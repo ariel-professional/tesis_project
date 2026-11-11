@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tesis-proyect"
+version = "0.1.0"
+description = "Reproducible experimental runner for constrained Hamiltonian paths"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic>=2.13,<3",
+  "pyperclip>=1.11,<2",
+  "rich>=15,<16",
+  "typer>=0.27,<1",
+  "pywin32>=311; sys_platform == 'win32'",
+]
+
+[project.scripts]
+tesis-proyect = "tesis_proyect.cli.app:main"
+tesis-domain = "tesis_domain_extensions.cli:main"
+tesis-desktop-gateway = "tesis_desktop_gateway.cli:main"
+
+[project.optional-dependencies]
+dev = [
+  "hypothesis>=6.138,<7",
+  "mypy>=1.17,<2",
+  "pytest>=8.4,<9",
+  "pytest-cov>=6.2,<8",
+  "ruff>=0.12,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tesis_proyect", "src/tesis_domain_extensions", "src/tesis_desktop_gateway"]
+exclude = ["src/tesis_domain_extensions/domains/*/ui/**"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["/.uv-cache"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers"
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+  "acceptance: normative end-to-end acceptance scenarios",
+  "integration: filesystem, process, CLI, or multi-module integration",
+  "platform: native operating-system behavior",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["tesis_proyect", "tesis_domain_extensions"]
+patch = ["subprocess"]
+disable_warnings = ["module-not-measured"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C90", "SIM", "RUF"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["tesis_proyect", "tesis_domain_extensions"]

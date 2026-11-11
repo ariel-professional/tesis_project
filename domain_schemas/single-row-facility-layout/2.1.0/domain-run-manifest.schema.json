@@ -1,0 +1,462 @@
+{
+  "$defs": {
+    "CoreRunAttempt": {
+      "additionalProperties": false,
+      "description": "A durable attempt to execute one projected case in CORE.",
+      "properties": {
+        "core_run_id": {
+          "title": "Core Run Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "created",
+            "running",
+            "completed",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "core_run_id",
+        "status"
+      ],
+      "title": "CoreRunAttempt",
+      "type": "object"
+    },
+    "GenerationMetricsV2": {
+      "additionalProperties": false,
+      "properties": {
+        "core_cases": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Core Cases"
+        },
+        "cycle_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Cycle Pruned Branches"
+        },
+        "degree_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Degree Pruned Branches"
+        },
+        "duplicate_forests": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duplicate Forests"
+        },
+        "forbidden_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Forbidden Combinations"
+        },
+        "invalid_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Combinations"
+        },
+        "structural_invalid_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Structural Invalid Combinations"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        },
+        "valid_selections": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Selections"
+        }
+      },
+      "required": [
+        "theoretical_combinations",
+        "cycle_pruned_branches",
+        "degree_pruned_branches",
+        "valid_selections",
+        "invalid_combinations",
+        "structural_invalid_combinations",
+        "forbidden_combinations",
+        "duplicate_forests",
+        "core_cases"
+      ],
+      "title": "GenerationMetricsV2",
+      "type": "object"
+    },
+    "LayoutCaseOrigin": {
+      "additionalProperties": false,
+      "properties": {
+        "added_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Added Component Ids",
+          "type": "array"
+        },
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "design_id",
+        "added_component_ids"
+      ],
+      "title": "LayoutCaseOrigin",
+      "type": "object"
+    },
+    "LayoutCasePayload": {
+      "additionalProperties": false,
+      "properties": {
+        "component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Component Ids",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Edges",
+          "type": "array"
+        }
+      },
+      "required": [
+        "component_ids",
+        "edges"
+      ],
+      "title": "LayoutCasePayload",
+      "type": "object"
+    },
+    "PersistedCaseV2": {
+      "additionalProperties": false,
+      "properties": {
+        "attempts": {
+          "items": {
+            "$ref": "#/$defs/CoreRunAttempt"
+          },
+          "minItems": 1,
+          "title": "Attempts",
+          "type": "array"
+        },
+        "core_experiment_id": {
+          "title": "Core Experiment Id",
+          "type": "string"
+        },
+        "forest_id": {
+          "title": "Forest Id",
+          "type": "string"
+        },
+        "origins": {
+          "items": {
+            "$ref": "#/$defs/LayoutCaseOrigin"
+          },
+          "title": "Origins",
+          "type": "array"
+        },
+        "payload": {
+          "$ref": "#/$defs/LayoutCasePayload"
+        }
+      },
+      "required": [
+        "forest_id",
+        "core_experiment_id",
+        "origins",
+        "payload",
+        "attempts"
+      ],
+      "title": "PersistedCaseV2",
+      "type": "object"
+    },
+    "RunDesignSummaryV2": {
+      "additionalProperties": false,
+      "properties": {
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        },
+        "design_title": {
+          "title": "Design Title",
+          "type": "string"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        }
+      },
+      "required": [
+        "design_id",
+        "design_title",
+        "theoretical_combinations"
+      ],
+      "title": "RunDesignSummaryV2",
+      "type": "object"
+    },
+    "SingleRowDomainRefV21": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "2.1.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRefV21",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "active_duration_ms": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Active Duration Ms",
+      "type": "integer"
+    },
+    "active_started_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Active Started At"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/PersistedCaseV2"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "designs": {
+      "items": {
+        "$ref": "#/$defs/RunDesignSummaryV2"
+      },
+      "title": "Designs",
+      "type": "array"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRefV21"
+    },
+    "domain_experiment_id": {
+      "title": "Domain Experiment Id",
+      "type": "string"
+    },
+    "domain_run_id": {
+      "title": "Domain Run Id",
+      "type": "string"
+    },
+    "failure_reason": {
+      "anyOf": [
+        {
+          "const": "interrupted",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Reason"
+    },
+    "fast_artifacts": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "type": "object"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Fast Artifacts"
+    },
+    "fast_counters": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Fast Counters"
+    },
+    "generation": {
+      "$ref": "#/$defs/GenerationMetricsV2"
+    },
+    "generator_cursor": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Generator Cursor"
+    },
+    "mode": {
+      "default": "standard",
+      "enum": [
+        "standard",
+        "high_performance"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "created",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain_run_id",
+    "domain_experiment_id",
+    "domain",
+    "display_name",
+    "status",
+    "generator_cursor",
+    "generation",
+    "cases",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "DomainRunManifestV21",
+  "type": "object"
+}

@@ -1,0 +1,62 @@
+{
+  "$defs": {
+    "InspectionRouteDomainRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "inspection-route",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "InspectionRouteDomainRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "domain": {
+      "$ref": "#/$defs/InspectionRouteDomainRef"
+    },
+    "domain_experiment_id": {
+      "title": "Domain Experiment Id",
+      "type": "string"
+    },
+    "reference": {
+      "title": "Reference",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "reference",
+    "domain_experiment_id",
+    "domain",
+    "display_name",
+    "created_at"
+  ],
+  "title": "InspectionExperimentSummary",
+  "type": "object"
+}

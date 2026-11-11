@@ -1,0 +1,78 @@
+{
+  "domain": {"id": "inspection-route", "version": "1.0.0"},
+  "execution": {
+    "counting_convention": "undirected_paths_reverse_identified",
+    "integer_limits": {
+      "cancellation_grace_ms": 1000,
+      "control_connect_timeout_ms": 1000,
+      "control_max_message_bytes": 16384,
+      "control_response_timeout_ms": 1000,
+      "event_max_payload_bytes": 65536,
+      "exact_timeout_ms": 30000,
+      "input_max_bytes": 1048576,
+      "max_n": 12,
+      "reference_max_n": 10,
+      "reference_timeout_ms": 30000,
+      "runner_log_backup_count": 3,
+      "runner_log_max_bytes": 5242880,
+      "worker_max_message_bytes": 65536
+    },
+    "methods": {
+      "exact": {"engine": "auto"},
+      "reference": {"engine": "bruteforce_python_v1"}
+    },
+    "persistence": {"persist_events": false, "policy": "normal"}
+  },
+  "schema_version": "1.0.0",
+  "study": {
+    "id": "politicas-inspeccion-planta",
+    "locations": [
+      {"id": "acceso", "name": "Acceso principal"},
+      {"id": "bombas", "name": "Sala de bombas"},
+      {"id": "calderas", "name": "Calderas"},
+      {"id": "tablero", "name": "Tablero eléctrico"},
+      {"id": "refrigeracion", "name": "Refrigeración"},
+      {"id": "laboratorio", "name": "Laboratorio"},
+      {"id": "deposito", "name": "Depósito"},
+      {"id": "efluentes", "name": "Tratamiento de efluentes"}
+    ],
+    "scenarios": [
+      {
+        "id": "procedimientos-independientes",
+        "required_consecutive_visits": [
+          ["bombas", "calderas"],
+          ["laboratorio", "deposito"]
+        ],
+        "title": "Dos procedimientos independientes"
+      },
+      {
+        "id": "recorrido-libre",
+        "required_consecutive_visits": [],
+        "title": "Inspección sin obligaciones de consecutividad"
+      },
+      {
+        "id": "recorrido-fijado",
+        "required_consecutive_visits": [
+          ["acceso", "bombas"],
+          ["bombas", "calderas"],
+          ["calderas", "tablero"],
+          ["tablero", "refrigeracion"],
+          ["refrigeracion", "laboratorio"],
+          ["laboratorio", "deposito"],
+          ["deposito", "efluentes"]
+        ],
+        "title": "Secuencia de inspección completamente fijada"
+      },
+      {
+        "id": "politica-imposible",
+        "required_consecutive_visits": [
+          ["calderas", "bombas"],
+          ["calderas", "tablero"],
+          ["calderas", "refrigeracion"]
+        ],
+        "title": "Política con dependencia imposible"
+      }
+    ],
+    "title": "Comparación de políticas de inspección semanal"
+  }
+}

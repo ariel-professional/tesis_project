@@ -1,0 +1,512 @@
+{
+  "$defs": {
+    "DomainLimitation": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "DomainLimitation",
+      "type": "object"
+    },
+    "FastDesignSummaryV21": {
+      "additionalProperties": false,
+      "properties": {
+        "base_case_id": {
+          "title": "Base Case Id",
+          "type": "string"
+        },
+        "base_layout_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Base Layout Count"
+        },
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        },
+        "design_title": {
+          "title": "Design Title",
+          "type": "string"
+        },
+        "frontier_index": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Frontier Index"
+        },
+        "invalid_combination_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Combination Count"
+        },
+        "order_indexes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Order Indexes",
+          "type": "object"
+        },
+        "pareto_case_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Pareto Case Count"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        },
+        "valid_case_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Case Count"
+        }
+      },
+      "required": [
+        "design_id",
+        "design_title",
+        "theoretical_combinations",
+        "valid_case_count",
+        "invalid_combination_count",
+        "base_case_id",
+        "base_layout_count",
+        "pareto_case_count",
+        "frontier_index",
+        "order_indexes"
+      ],
+      "title": "FastDesignSummaryV21",
+      "type": "object"
+    },
+    "GenerationMetricsV2": {
+      "additionalProperties": false,
+      "properties": {
+        "core_cases": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Core Cases"
+        },
+        "cycle_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Cycle Pruned Branches"
+        },
+        "degree_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Degree Pruned Branches"
+        },
+        "duplicate_forests": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duplicate Forests"
+        },
+        "forbidden_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Forbidden Combinations"
+        },
+        "invalid_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Combinations"
+        },
+        "structural_invalid_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Structural Invalid Combinations"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        },
+        "valid_selections": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Selections"
+        }
+      },
+      "required": [
+        "theoretical_combinations",
+        "cycle_pruned_branches",
+        "degree_pruned_branches",
+        "valid_selections",
+        "invalid_combinations",
+        "structural_invalid_combinations",
+        "forbidden_combinations",
+        "duplicate_forests",
+        "core_cases"
+      ],
+      "title": "GenerationMetricsV2",
+      "type": "object"
+    },
+    "ObjectiveDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "criterion",
+            "indicator"
+          ],
+          "title": "Classification",
+          "type": "string"
+        },
+        "decision_question": {
+          "title": "Decision Question",
+          "type": "string"
+        },
+        "direction": {
+          "enum": [
+            "maximize",
+            "minimize"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "direction_mode": {
+          "default": "fixed",
+          "enum": [
+            "fixed",
+            "per_instance"
+          ],
+          "title": "Direction Mode",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Limitations",
+          "type": "array"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "repeatable_input": {
+          "default": false,
+          "title": "Repeatable Input",
+          "type": "boolean"
+        },
+        "required_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Required Inputs",
+          "type": "array"
+        },
+        "scope": {
+          "enum": [
+            "case",
+            "prescribed_adjacencies"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "version": {
+          "const": "1",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "name",
+        "summary",
+        "decision_question",
+        "classification",
+        "direction",
+        "unit",
+        "formula",
+        "scope",
+        "limitations",
+        "required_inputs",
+        "evidence"
+      ],
+      "title": "ObjectiveDefinition",
+      "type": "object"
+    },
+    "ObjectiveSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "$ref": "#/$defs/ObjectiveDefinition"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "title": "ObjectiveSnapshot",
+      "type": "object"
+    },
+    "SingleRowDomainRefV21": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "2.1.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRefV21",
+      "type": "object"
+    },
+    "StationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "StationV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "designs": {
+      "items": {
+        "$ref": "#/$defs/FastDesignSummaryV21"
+      },
+      "title": "Designs",
+      "type": "array"
+    },
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRefV21"
+    },
+    "execution": {
+      "additionalProperties": true,
+      "title": "Execution",
+      "type": "object"
+    },
+    "files": {
+      "additionalProperties": {
+        "additionalProperties": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "type": "object"
+      },
+      "title": "Files",
+      "type": "object"
+    },
+    "generation": {
+      "$ref": "#/$defs/GenerationMetricsV2"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/DomainLimitation"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "objective_snapshots": {
+      "items": {
+        "$ref": "#/$defs/ObjectiveSnapshot"
+      },
+      "title": "Objective Snapshots",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "2.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "stations": {
+      "items": {
+        "$ref": "#/$defs/StationV2"
+      },
+      "title": "Stations",
+      "type": "array"
+    },
+    "study_description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Study Description"
+    },
+    "study_id": {
+      "title": "Study Id",
+      "type": "string"
+    },
+    "study_title": {
+      "title": "Study Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain",
+    "study_id",
+    "study_title",
+    "study_description",
+    "stations",
+    "execution",
+    "generation",
+    "objective_snapshots",
+    "designs",
+    "limitations",
+    "files"
+  ],
+  "title": "FastResultSummaryV21",
+  "type": "object"
+}

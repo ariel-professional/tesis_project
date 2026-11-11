@@ -1,0 +1,61 @@
+{
+  "name": "tesis-proyect-desktop",
+  "version": "0.1.0",
+  "description": "Desktop vertical slice for reproducible domain experiments",
+  "author": "tesis-proyect contributors",
+  "private": true,
+  "main": ".webpack/main",
+  "engines": {
+    "node": ">=22.13.0 <23",
+    "npm": ">=10 <11"
+  },
+  "scripts": {
+    "doctor": "node scripts/check-environment.mjs",
+    "generate": "node scripts/generate-all.mjs",
+    "prestart": "node scripts/generate-all.mjs",
+    "start": "electron-forge start",
+    "dev": "node scripts/dev-watch.mjs",
+    "watch": "node scripts/dev-watch.mjs",
+    "prepackage": "node scripts/generate-all.mjs",
+    "package": "electron-forge package",
+    "premake": "node scripts/generate-all.mjs",
+    "make": "electron-forge make",
+    "evidence": "python scripts/generate-release-evidence.py",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch --preserveWatchOutput",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "gateway:smoke": "node scripts/gateway-smoke.mjs",
+    "verify": "npm run doctor && npm run generate && npm run typecheck && npm test && npm run gateway:smoke"
+  },
+  "dependencies": {
+    "@electron-forge/plugin-webpack": "7.11.2",
+    "ajv": "8.20.0",
+    "electron-squirrel-startup": "1.0.1",
+    "pdfjs-dist": "6.3.289",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "7.11.2",
+    "@electron-forge/maker-squirrel": "7.11.2",
+    "@electron-forge/shared-types": "7.11.2",
+    "@testing-library/react": "16.3.0",
+    "@types/node": "22.15.30",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.5",
+    "css-loader": "7.1.2",
+    "electron": "44.1.1",
+    "jsdom": "26.1.0",
+    "json-schema-to-typescript": "15.0.4",
+    "style-loader": "4.0.0",
+    "ts-loader": "9.5.2",
+    "typescript": "5.8.3",
+    "vitest": "3.2.7",
+    "webpack": "5.110.3",
+    "webpack-cli": "6.0.1"
+  },
+  "overrides": {
+    "tar": "7.5.22"
+  }
+}

@@ -1,0 +1,1785 @@
+{
+  "$defs": {
+    "AttachmentAbortRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "attachments.abort",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/AttachmentTransferParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "AttachmentAbortRequest",
+      "type": "object"
+    },
+    "AttachmentAppendParams": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "maxLength": 699052,
+          "title": "Data",
+          "type": "string"
+        },
+        "offset": {
+          "minimum": 0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "upload_id": {
+          "title": "Upload Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "upload_id",
+        "offset",
+        "data"
+      ],
+      "title": "AttachmentAppendParams",
+      "type": "object"
+    },
+    "AttachmentAppendRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "attachments.append",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/AttachmentAppendParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "AttachmentAppendRequest",
+      "type": "object"
+    },
+    "AttachmentBeginParams": {
+      "additionalProperties": false,
+      "properties": {
+        "media_type": {
+          "enum": [
+            "image/png",
+            "image/jpeg",
+            "image/webp",
+            "application/pdf"
+          ],
+          "title": "Media Type",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "media_type",
+        "size_bytes"
+      ],
+      "title": "AttachmentBeginParams",
+      "type": "object"
+    },
+    "AttachmentBeginRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "attachments.begin",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/AttachmentBeginParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "AttachmentBeginRequest",
+      "type": "object"
+    },
+    "AttachmentFinishRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "attachments.finish",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/AttachmentTransferParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "AttachmentFinishRequest",
+      "type": "object"
+    },
+    "AttachmentReadParams": {
+      "additionalProperties": false,
+      "properties": {
+        "length": {
+          "maximum": 524288,
+          "minimum": 0,
+          "title": "Length",
+          "type": "integer"
+        },
+        "offset": {
+          "minimum": 0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sha256",
+        "offset",
+        "length"
+      ],
+      "title": "AttachmentReadParams",
+      "type": "object"
+    },
+    "AttachmentReadRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "attachments.read",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/AttachmentReadParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "AttachmentReadRequest",
+      "type": "object"
+    },
+    "AttachmentTransferParams": {
+      "additionalProperties": false,
+      "properties": {
+        "upload_id": {
+          "title": "Upload Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "upload_id"
+      ],
+      "title": "AttachmentTransferParams",
+      "type": "object"
+    },
+    "CancelParams": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        }
+      },
+      "required": [
+        "domain_run_id"
+      ],
+      "title": "CancelParams",
+      "type": "object"
+    },
+    "CoreCaseStartedData": {
+      "additionalProperties": false,
+      "properties": {
+        "core_run_id": {
+          "title": "Core Run Id",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "ordinal": {
+          "minimum": 1,
+          "title": "Ordinal",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "ordinal",
+        "description",
+        "core_run_id"
+      ],
+      "title": "CoreCaseStartedData",
+      "type": "object"
+    },
+    "CoreCaseStartedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/CoreCaseStartedData"
+        },
+        "event": {
+          "const": "core_case_started",
+          "title": "Event",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "event",
+          "default": "event",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "operation_id",
+        "sequence",
+        "event",
+        "data"
+      ],
+      "title": "CoreCaseStartedEvent",
+      "type": "object"
+    },
+    "CoreProgressData": {
+      "additionalProperties": false,
+      "properties": {
+        "completed": {
+          "title": "Completed",
+          "type": "integer"
+        },
+        "core_run_id": {
+          "title": "Core Run Id",
+          "type": "string"
+        },
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "stage": {
+          "title": "Stage",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Total"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "core_run_id",
+        "stage",
+        "completed",
+        "total"
+      ],
+      "title": "CoreProgressData",
+      "type": "object"
+    },
+    "CoreProgressEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/CoreProgressData"
+        },
+        "event": {
+          "const": "core_progress",
+          "title": "Event",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "event",
+          "default": "event",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "operation_id",
+        "sequence",
+        "event",
+        "data"
+      ],
+      "title": "CoreProgressEvent",
+      "type": "object"
+    },
+    "DomainRunCancelRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "domain_run.cancel",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/CancelParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "DomainRunCancelRequest",
+      "type": "object"
+    },
+    "DomainRunListRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "domain_run.list",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/RunListParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "DomainRunListRequest",
+      "type": "object"
+    },
+    "DomainRunParams": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain_run_id"
+      ],
+      "title": "DomainRunParams",
+      "type": "object"
+    },
+    "DomainRunResultRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "domain_run.result",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/DomainRunParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "DomainRunResultRequest",
+      "type": "object"
+    },
+    "DomainRunResumeRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "domain_run.resume",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/DomainRunParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "DomainRunResumeRequest",
+      "type": "object"
+    },
+    "DomainRunStartRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "domain_run.start",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/ExperimentParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "DomainRunStartRequest",
+      "type": "object"
+    },
+    "DomainRunStatusRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "domain_run.status",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/DomainRunParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "DomainRunStatusRequest",
+      "type": "object"
+    },
+    "DomainsListRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "domains.list",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/EmptyParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "DomainsListRequest",
+      "type": "object"
+    },
+    "DraftParams": {
+      "additionalProperties": false,
+      "properties": {
+        "draft": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Draft",
+          "type": "object"
+        }
+      },
+      "required": [
+        "draft"
+      ],
+      "title": "DraftParams",
+      "type": "object"
+    },
+    "EmptyParams": {
+      "additionalProperties": false,
+      "properties": {},
+      "title": "EmptyParams",
+      "type": "object"
+    },
+    "ExperimentParams": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_experiment_id": {
+          "title": "Domain Experiment Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain_experiment_id"
+      ],
+      "title": "ExperimentParams",
+      "type": "object"
+    },
+    "GatewayError": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "details": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Details",
+          "type": "object"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "details"
+      ],
+      "title": "GatewayError",
+      "type": "object"
+    },
+    "GatewayResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GatewayError"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "message_type": {
+          "const": "response",
+          "default": "response",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "operation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Operation Id"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JsonValue"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "success",
+            "accepted",
+            "error"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "request_id",
+        "status",
+        "operation_id",
+        "result",
+        "error"
+      ],
+      "title": "GatewayResponse",
+      "type": "object"
+    },
+    "GenerationProgressData": {
+      "additionalProperties": false,
+      "properties": {
+        "completed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Completed"
+        },
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Total"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "completed",
+        "total"
+      ],
+      "title": "GenerationProgressData",
+      "type": "object"
+    },
+    "GenerationProgressEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/GenerationProgressData"
+        },
+        "event": {
+          "const": "generation_progress",
+          "title": "Event",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "event",
+          "default": "event",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "operation_id",
+        "sequence",
+        "event",
+        "data"
+      ],
+      "title": "GenerationProgressEvent",
+      "type": "object"
+    },
+    "GenerationStartedData": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "total": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Total"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "total"
+      ],
+      "title": "GenerationStartedData",
+      "type": "object"
+    },
+    "GenerationStartedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/GenerationStartedData"
+        },
+        "event": {
+          "const": "generation_started",
+          "title": "Event",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "event",
+          "default": "event",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "operation_id",
+        "sequence",
+        "event",
+        "data"
+      ],
+      "title": "GenerationStartedEvent",
+      "type": "object"
+    },
+    "HelloRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "hello",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/EmptyParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "HelloRequest",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "LayoutEstimateCombinationsRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "layout.estimate_combinations",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/DraftParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "LayoutEstimateCombinationsRequest",
+      "type": "object"
+    },
+    "LayoutValidateForestRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "layout.validate_forest",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/DraftParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "LayoutValidateForestRequest",
+      "type": "object"
+    },
+    "OperationErrorData": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Domain Run Id"
+        },
+        "error": {
+          "$ref": "#/$defs/GatewayError"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "error"
+      ],
+      "title": "OperationErrorData",
+      "type": "object"
+    },
+    "OperationErrorEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/OperationErrorData"
+        },
+        "event": {
+          "const": "error",
+          "title": "Event",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "event",
+          "default": "event",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "operation_id",
+        "sequence",
+        "event",
+        "data"
+      ],
+      "title": "OperationErrorEvent",
+      "type": "object"
+    },
+    "PingRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "ping",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/EmptyParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "PingRequest",
+      "type": "object"
+    },
+    "RunListParams": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_experiment_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Domain Experiment Id"
+        },
+        "domain_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Domain Id"
+        }
+      },
+      "title": "RunListParams",
+      "type": "object"
+    },
+    "ShutdownRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "shutdown",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/EmptyParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "ShutdownRequest",
+      "type": "object"
+    },
+    "StudyDocumentationRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "study.documentation",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/ExperimentParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "StudyDocumentationRequest",
+      "type": "object"
+    },
+    "StudyPrepareRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "study.prepare",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/DraftParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "StudyPrepareRequest",
+      "type": "object"
+    },
+    "StudyValidateRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "study.validate",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/DraftParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "StudyValidateRequest",
+      "type": "object"
+    },
+    "TemplateParams": {
+      "additionalProperties": false,
+      "properties": {
+        "template_id": {
+          "title": "Template Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "template_id"
+      ],
+      "title": "TemplateParams",
+      "type": "object"
+    },
+    "TemplateRunParams": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "enabled"
+      ],
+      "title": "TemplateRunParams",
+      "type": "object"
+    },
+    "TemplatesListRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "templates.list",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/EmptyParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "TemplatesListRequest",
+      "type": "object"
+    },
+    "TemplatesLoadRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "templates.load",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/TemplateParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "TemplatesLoadRequest",
+      "type": "object"
+    },
+    "TemplatesSaveRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "templates.save",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/DraftParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "TemplatesSaveRequest",
+      "type": "object"
+    },
+    "TemplatesSetForRunRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "const": "templates.set_for_run",
+          "title": "Command",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "request",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/$defs/TemplateRunParams"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "message_type",
+        "request_id",
+        "command",
+        "params"
+      ],
+      "title": "TemplatesSetForRunRequest",
+      "type": "object"
+    },
+    "TerminalData": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "status"
+      ],
+      "title": "TerminalData",
+      "type": "object"
+    },
+    "TerminalEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/$defs/TerminalData"
+        },
+        "event": {
+          "const": "terminal",
+          "title": "Event",
+          "type": "string"
+        },
+        "message_type": {
+          "const": "event",
+          "default": "event",
+          "title": "Message Type",
+          "type": "string"
+        },
+        "operation_id": {
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "protocol_version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "operation_id",
+        "sequence",
+        "event",
+        "data"
+      ],
+      "title": "TerminalEvent",
+      "type": "object"
+    }
+  },
+  "anyOf": [
+    {
+      "discriminator": {
+        "mapping": {
+          "attachments.abort": "#/$defs/AttachmentAbortRequest",
+          "attachments.append": "#/$defs/AttachmentAppendRequest",
+          "attachments.begin": "#/$defs/AttachmentBeginRequest",
+          "attachments.finish": "#/$defs/AttachmentFinishRequest",
+          "attachments.read": "#/$defs/AttachmentReadRequest",
+          "domain_run.cancel": "#/$defs/DomainRunCancelRequest",
+          "domain_run.list": "#/$defs/DomainRunListRequest",
+          "domain_run.result": "#/$defs/DomainRunResultRequest",
+          "domain_run.resume": "#/$defs/DomainRunResumeRequest",
+          "domain_run.start": "#/$defs/DomainRunStartRequest",
+          "domain_run.status": "#/$defs/DomainRunStatusRequest",
+          "domains.list": "#/$defs/DomainsListRequest",
+          "hello": "#/$defs/HelloRequest",
+          "layout.estimate_combinations": "#/$defs/LayoutEstimateCombinationsRequest",
+          "layout.validate_forest": "#/$defs/LayoutValidateForestRequest",
+          "ping": "#/$defs/PingRequest",
+          "shutdown": "#/$defs/ShutdownRequest",
+          "study.documentation": "#/$defs/StudyDocumentationRequest",
+          "study.prepare": "#/$defs/StudyPrepareRequest",
+          "study.validate": "#/$defs/StudyValidateRequest",
+          "templates.list": "#/$defs/TemplatesListRequest",
+          "templates.load": "#/$defs/TemplatesLoadRequest",
+          "templates.save": "#/$defs/TemplatesSaveRequest",
+          "templates.set_for_run": "#/$defs/TemplatesSetForRunRequest"
+        },
+        "propertyName": "command"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/HelloRequest"
+        },
+        {
+          "$ref": "#/$defs/PingRequest"
+        },
+        {
+          "$ref": "#/$defs/ShutdownRequest"
+        },
+        {
+          "$ref": "#/$defs/DomainsListRequest"
+        },
+        {
+          "$ref": "#/$defs/TemplatesListRequest"
+        },
+        {
+          "$ref": "#/$defs/TemplatesLoadRequest"
+        },
+        {
+          "$ref": "#/$defs/TemplatesSaveRequest"
+        },
+        {
+          "$ref": "#/$defs/TemplatesSetForRunRequest"
+        },
+        {
+          "$ref": "#/$defs/StudyValidateRequest"
+        },
+        {
+          "$ref": "#/$defs/StudyPrepareRequest"
+        },
+        {
+          "$ref": "#/$defs/LayoutValidateForestRequest"
+        },
+        {
+          "$ref": "#/$defs/LayoutEstimateCombinationsRequest"
+        },
+        {
+          "$ref": "#/$defs/DomainRunStartRequest"
+        },
+        {
+          "$ref": "#/$defs/DomainRunCancelRequest"
+        },
+        {
+          "$ref": "#/$defs/DomainRunResumeRequest"
+        },
+        {
+          "$ref": "#/$defs/DomainRunStatusRequest"
+        },
+        {
+          "$ref": "#/$defs/DomainRunListRequest"
+        },
+        {
+          "$ref": "#/$defs/DomainRunResultRequest"
+        },
+        {
+          "$ref": "#/$defs/AttachmentBeginRequest"
+        },
+        {
+          "$ref": "#/$defs/AttachmentAppendRequest"
+        },
+        {
+          "$ref": "#/$defs/AttachmentFinishRequest"
+        },
+        {
+          "$ref": "#/$defs/AttachmentAbortRequest"
+        },
+        {
+          "$ref": "#/$defs/AttachmentReadRequest"
+        },
+        {
+          "$ref": "#/$defs/StudyDocumentationRequest"
+        }
+      ]
+    },
+    {
+      "$ref": "#/$defs/GatewayResponse"
+    },
+    {
+      "discriminator": {
+        "mapping": {
+          "core_case_started": "#/$defs/CoreCaseStartedEvent",
+          "core_progress": "#/$defs/CoreProgressEvent",
+          "error": "#/$defs/OperationErrorEvent",
+          "generation_progress": "#/$defs/GenerationProgressEvent",
+          "generation_started": "#/$defs/GenerationStartedEvent",
+          "terminal": "#/$defs/TerminalEvent"
+        },
+        "propertyName": "event"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/GenerationStartedEvent"
+        },
+        {
+          "$ref": "#/$defs/GenerationProgressEvent"
+        },
+        {
+          "$ref": "#/$defs/CoreCaseStartedEvent"
+        },
+        {
+          "$ref": "#/$defs/CoreProgressEvent"
+        },
+        {
+          "$ref": "#/$defs/TerminalEvent"
+        },
+        {
+          "$ref": "#/$defs/OperationErrorEvent"
+        }
+      ]
+    }
+  ]
+}

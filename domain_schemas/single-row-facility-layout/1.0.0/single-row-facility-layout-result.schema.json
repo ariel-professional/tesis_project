@@ -1,0 +1,965 @@
+{
+  "$defs": {
+    "DomainDiagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_locations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Locations",
+          "type": "array"
+        },
+        "core_code": {
+          "title": "Core Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "core_code",
+        "message",
+        "affected_locations"
+      ],
+      "title": "DomainDiagnostic",
+      "type": "object"
+    },
+    "DomainExecutionRef": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_experiment_id": {
+          "title": "Domain Experiment Id",
+          "type": "string"
+        },
+        "domain_run_id": {
+          "title": "Domain Run Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain_run_id",
+        "domain_experiment_id",
+        "status"
+      ],
+      "title": "DomainExecutionRef",
+      "type": "object"
+    },
+    "DomainLimitation": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "DomainLimitation",
+      "type": "object"
+    },
+    "ExactFraction": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Denominator"
+        },
+        "numerator": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Numerator"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "title": "ExactFraction",
+      "type": "object"
+    },
+    "GenerationMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "core_cases": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Core Cases"
+        },
+        "cycle_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Cycle Pruned Branches"
+        },
+        "degree_pruned_branches": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Degree Pruned Branches"
+        },
+        "duplicate_forests": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duplicate Forests"
+        },
+        "invalid_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Combinations"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        },
+        "valid_selections": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Selections"
+        }
+      },
+      "required": [
+        "theoretical_combinations",
+        "cycle_pruned_branches",
+        "degree_pruned_branches",
+        "valid_selections",
+        "invalid_combinations",
+        "duplicate_forests",
+        "core_cases"
+      ],
+      "title": "GenerationMetrics",
+      "type": "object"
+    },
+    "InvalidCombination": {
+      "additionalProperties": false,
+      "properties": {
+        "added_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Added Component Ids",
+          "type": "array"
+        },
+        "affected_station_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Station Ids",
+          "type": "array"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "conflicting_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Conflicting Component Ids",
+          "type": "array"
+        },
+        "conflicting_edges": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Conflicting Edges",
+          "type": "array"
+        },
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "cycle",
+            "degree_exceeded"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "design_id",
+        "added_component_ids",
+        "reason",
+        "affected_station_ids",
+        "conflicting_edges",
+        "conflicting_component_ids"
+      ],
+      "title": "InvalidCombination",
+      "type": "object"
+    },
+    "InvalidConflictSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_station_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Station Ids",
+          "type": "array"
+        },
+        "combination_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Combination Count"
+        },
+        "conflicting_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Conflicting Component Ids",
+          "type": "array"
+        },
+        "conflicting_edges": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Conflicting Edges",
+          "type": "array"
+        },
+        "reason": {
+          "enum": [
+            "cycle",
+            "degree_exceeded"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason",
+        "affected_station_ids",
+        "conflicting_edges",
+        "conflicting_component_ids",
+        "combination_count"
+      ],
+      "title": "InvalidConflictSummary",
+      "type": "object"
+    },
+    "LayoutCaseResult": {
+      "additionalProperties": false,
+      "properties": {
+        "added_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Added Component Ids",
+          "type": "array"
+        },
+        "availability_ratio": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactFraction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "compatible_layout_count": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RouteCount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Component Ids",
+          "type": "array"
+        },
+        "core_run_id": {
+          "title": "Core Run Id",
+          "type": "string"
+        },
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/DomainDiagnostic"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "dominated": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dominated"
+        },
+        "edges": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Edges",
+          "type": "array"
+        },
+        "feasibility": {
+          "enum": [
+            "feasible",
+            "invalid_constraints",
+            "inconclusive"
+          ],
+          "title": "Feasibility",
+          "type": "string"
+        },
+        "forest_id": {
+          "title": "Forest Id",
+          "type": "string"
+        },
+        "forest_structure": {
+          "$ref": "#/$defs/LinearForestStructure"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/DomainLimitation"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "mandatory_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Mandatory Component Ids",
+          "type": "array"
+        },
+        "pareto_optimal": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pareto Optimal"
+        },
+        "prescribed_edge_count": {
+          "minimum": 0,
+          "title": "Prescribed Edge Count",
+          "type": "integer"
+        },
+        "restrictiveness_ratio": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExactFraction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "technical_metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TechnicalMetrics"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total_utility": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Total Utility"
+        },
+        "utility": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Utility"
+        }
+      },
+      "required": [
+        "case_id",
+        "forest_id",
+        "design_id",
+        "mandatory_component_ids",
+        "added_component_ids",
+        "component_ids",
+        "edges",
+        "forest_structure",
+        "prescribed_edge_count",
+        "utility",
+        "total_utility",
+        "core_run_id",
+        "feasibility",
+        "compatible_layout_count",
+        "availability_ratio",
+        "restrictiveness_ratio",
+        "technical_metrics",
+        "diagnostics",
+        "limitations",
+        "dominated",
+        "pareto_optimal"
+      ],
+      "title": "LayoutCaseResult",
+      "type": "object"
+    },
+    "LayoutDesignResult": {
+      "additionalProperties": false,
+      "properties": {
+        "base_case_id": {
+          "title": "Base Case Id",
+          "type": "string"
+        },
+        "base_layout_count": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RouteCount"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "candidate_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidate Component Ids",
+          "type": "array"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/LayoutCaseResult"
+          },
+          "title": "Cases",
+          "type": "array"
+        },
+        "design_id": {
+          "title": "Design Id",
+          "type": "string"
+        },
+        "design_title": {
+          "title": "Design Title",
+          "type": "string"
+        },
+        "invalid_combination_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Invalid Combination Count"
+        },
+        "invalid_combinations": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/InvalidCombination"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Invalid Combinations"
+        },
+        "invalid_conflicts": {
+          "items": {
+            "$ref": "#/$defs/InvalidConflictSummary"
+          },
+          "title": "Invalid Conflicts",
+          "type": "array"
+        },
+        "mandatory_component_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Mandatory Component Ids",
+          "type": "array"
+        },
+        "pareto_case_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Pareto Case Ids",
+          "type": "array"
+        },
+        "theoretical_combinations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Theoretical Combinations"
+        },
+        "valid_case_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Valid Case Count"
+        }
+      },
+      "required": [
+        "design_id",
+        "design_title",
+        "mandatory_component_ids",
+        "candidate_component_ids",
+        "theoretical_combinations",
+        "valid_case_count",
+        "invalid_combination_count",
+        "base_case_id",
+        "base_layout_count",
+        "cases",
+        "invalid_conflicts",
+        "invalid_combinations",
+        "pareto_case_ids"
+      ],
+      "title": "LayoutDesignResult",
+      "type": "object"
+    },
+    "LinearForestStructure": {
+      "additionalProperties": false,
+      "properties": {
+        "isolated_station_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Isolated Station Ids",
+          "type": "array"
+        },
+        "paths": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Paths",
+          "type": "array"
+        }
+      },
+      "required": [
+        "paths",
+        "isolated_station_ids"
+      ],
+      "title": "LinearForestStructure",
+      "type": "object"
+    },
+    "MeasureDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "title": "Definition",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "definition"
+      ],
+      "title": "MeasureDefinition",
+      "type": "object"
+    },
+    "ProducerRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "ProducerRef",
+      "type": "object"
+    },
+    "RouteCount": {
+      "additionalProperties": false,
+      "properties": {
+        "comparison_status": {
+          "anyOf": [
+            {
+              "enum": [
+                "match",
+                "mismatch",
+                "not_applicable"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Comparison Status"
+        },
+        "counting_convention": {
+          "const": "undirected_paths_reverse_identified",
+          "title": "Counting Convention",
+          "type": "string"
+        },
+        "exact_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Exact Value"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProducerRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reference_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reference Value"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "value",
+        "method",
+        "exact_value",
+        "reference_value",
+        "counting_convention",
+        "comparison_status"
+      ],
+      "title": "RouteCount",
+      "type": "object"
+    },
+    "SingleRowDomainRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "const": "single-row-facility-layout",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "title": "SingleRowDomainRef",
+      "type": "object"
+    },
+    "Station": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "Station",
+      "type": "object"
+    },
+    "TechnicalMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates_examined": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Candidates Examined"
+        },
+        "duration_ms": {
+          "minimum": 0,
+          "title": "Duration Ms",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "duration_ms",
+        "candidates_examined"
+      ],
+      "title": "TechnicalMetrics",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "designs": {
+      "items": {
+        "$ref": "#/$defs/LayoutDesignResult"
+      },
+      "title": "Designs",
+      "type": "array"
+    },
+    "domain": {
+      "$ref": "#/$defs/SingleRowDomainRef"
+    },
+    "execution": {
+      "$ref": "#/$defs/DomainExecutionRef"
+    },
+    "generation": {
+      "$ref": "#/$defs/GenerationMetrics"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/DomainLimitation"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "primary_measure": {
+      "$ref": "#/$defs/MeasureDefinition"
+    },
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "stations": {
+      "items": {
+        "$ref": "#/$defs/Station"
+      },
+      "title": "Stations",
+      "type": "array"
+    },
+    "study_description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Study Description"
+    },
+    "study_id": {
+      "title": "Study Id",
+      "type": "string"
+    },
+    "study_title": {
+      "title": "Study Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "domain",
+    "study_id",
+    "study_title",
+    "study_description",
+    "stations",
+    "execution",
+    "primary_measure",
+    "generation",
+    "designs",
+    "limitations"
+  ],
+  "title": "SingleRowFacilityLayoutResult",
+  "type": "object"
+}
